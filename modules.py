@@ -1,7 +1,10 @@
+import warnings
+
 '''This python script is used to test which version of the software can be used in your computer 
     if your computer an nvidia GPU and cupy and cucim installed the GPU version of the software will
     be privileged. 
     '''
+
 # Try to import cupy, cupyx.scipy and cucim.skimage functions
 
 try:
@@ -19,7 +22,7 @@ try:
 
     except:
 
-        print("cupyx functions or cucim functions can not be called")
+        warnings.warn("cupyx functions or cucim functions can not be called")
 
     # If not try  to import numpy, scipy and skimage functions this version will be slow
 except:
@@ -30,7 +33,7 @@ except:
     from scipy.ndimage.filters import convolve as filter2  # , laplace
     try:
         import numpy as cp
-        print("The CPU version of the software  will be used.Cannot import GPU modules.\nNB:If you already have  a recent NviDia graphic card, try to install CuPy and cuCim (Rapids)")
+        warnings.warn("The CPU version of the software  will be used.Cannot import GPU modules.NB:If you already have  a recent NviDia graphic card, try to install CuPy and cuCim (Rapids)")
 
     except:
         raise ValueError(
