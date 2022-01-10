@@ -1,10 +1,7 @@
 import numpy as np
 import cv2
 import matplotlib.pyplot as plt
-
-
 from modules import *
-
 import flow_operator as fo
 import rescale_img as ri
 import energies as en

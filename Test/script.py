@@ -1,9 +1,14 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import cv2
-from compute_flow import *
 import time
-''' In this script we test the function compute_flow and we st parameters 
+import sys
+import warnings
+# Source files path 
+sys.path.append('../Src/')
+
+from compute_flow import *
+''' In this script we test the function compute_flow and we set parameters 
 We created a dico called parameters. 
 parameters contains: 
     -pyram_levels:  Number of levels
@@ -31,9 +36,9 @@ lmbda = 3*10**4
 lambda2 = 0.001
 lambda3 = 1
 '''
+
 # Reading Images
-'''Im1 = cv2.imread('ad1.tiff', 0)
-Im2 = cv2.imread('ad2.tiff', 0)'''
+
 Im1= cv2.imread('Im11.png', 0)
 Im2= cv2.imread('Im22.png', 0)
 
