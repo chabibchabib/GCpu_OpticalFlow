@@ -5,9 +5,6 @@ import cv2
 import time
 import sys
 import warnings
-# Source files path 
-sys.path.append('../Src/')
-from compute_flow import *
 
 ''' In this script we test the function compute_flow and we set parameters 
 We created a dico called parameters. 
@@ -38,15 +35,69 @@ lambda2 = 0.001
 lambda3 = 1
 '''
 
+# Source files path 
+sys.path.append('../Src/')
+from compute_flow import * 
+
+def parameters_func(tab,parameters):
+    '''
+    parameters_func will associate the parameters and values given in tab with their 
+    their correspondant fields in the dico of parameters 
+    Parameters: 
+        tab: a table of strings containing the keys and their values (Example: lmbda=0.05)
+        parameters: the dictionary of parameters 
+    returns: 
+         will associate the parameters and values given in tab with their 
+        their correspondant fields in parameters
+    '''
+    #The parameters of type int
+    tabint=["pyram_levels","ordre_inter","size_median_filter","max_linear_iter","max_iter"]
+    #The parameters of type float
+    tabfloat=["factor","lmbda","lambda2","lambda3"]
+    if len(tab)>4:
+        for i in range(4,len(tab)):
+
+            #Index of '='
+            idx= tab[i].find("=")
+            #The name of the parameter (key)
+            key=tab[i][:idx]
+            #The value of the parameter
+            value=tab[i][idx+1:len(tab[i])]
+            # Modify the value of the parameter 
+
+            if key in tabint:
+                parameters[key]=int(value)
+            elif key in tabfloat:
+                parameters[key]=float(value)
+            elif(key=="Mask"):
+                existP=0
+                #Find the Path_Mask 
+                for j in range(4,len(tab)):
+                    idxP= tab[j].find("=")
+                    keyP=tab[j][:idxP]
+                    if keyP=="Path_Mask":
+                        valueP=tab[j][idxP+1:len(tab[j])]
+                        Mask=valueP+value
+                        existP=1
+                if(existP==0):
+                    raise ValueError("No founded path for Mask")
+                #Read the image Mask if exist 
+                parameters[key]=cv2.imread(Mask,0)
 
 
+                    
+            elif((key not in tabint) and(key not in tabfloat) and key !="Mask" and key!="Path_Mask" ):
+                # No founded Key 
+                raise ValueError("Problem with the parameter",key)
+    if len(tab)<4:
+        # At least we must have 4 parameters: The name of the main file, 2 Images and Their Path 
+        raise ValueError("Not enough parameters")
 
-parameters = {"pyram_levels": 3, "factor": 1/0.5, "ordre_inter": 3, "size_median_filter": 5, "max_linear_iter": 1, "max_iter": 10,
-              "lmbda": 3.*10**4, "lambda2": 0.001, "lambda3": 1., "Mask": None}
-
-
-# pyram_levels=ri.compute_auto_pyramd_levels(Im1,spacing) #Computing the number of levels dinamically, in  the finest level we get images of 20 to 30 pixels
 if __name__ == "__main__":
+    parameters = {"pyram_levels": 3, "factor": 1/0.5, "ordre_inter": 3, "size_median_filter": 5, "max_linear_iter": 1, "max_iter": 10,
+              "lmbda": 3.*10**4, "lambda2": 0.001, "lambda3": 1., "Mask": None}
+    # pyram_levels=ri.compute_auto_pyramd_levels(Im1,spacing) #Computing the number of levels dinamically, in  the finest level we get images of 20 to 30 pixels
+
     if (len(sys.argv)<4):
         raise ValueError("The image sequence was not found\n Verify that you are using  correct directory path and  images name")
     # Images Loading from sys.argv[1] dir
@@ -56,6 +107,9 @@ if __name__ == "__main__":
     Im1= cv2.imread(im1_path, 0)
     Im2= cv2.imread(im2_path, 0)
 
+    #replace_main(sys.argv,parameters)
+    parameters_func(sys.argv,parameters)
+    print('PARAMETERS\n',parameters["lmbda"])
     t1 = time.time()
     u, v = compute_flow(Im1, Im2,  parameters["pyram_levels"], parameters["factor"], parameters["ordre_inter"],
                         parameters["lmbda"], parameters["size_median_filter"], parameters["max_linear_iter"], parameters["max_iter"], parameters["lambda2"], parameters["lambda3"], parameters["Mask"])
