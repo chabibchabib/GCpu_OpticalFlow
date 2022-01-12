@@ -82,7 +82,11 @@ def parameters_func(tab,parameters):
                 if(existP==0):
                     raise ValueError("No founded path for Mask")
                 #Read the image Mask if exist 
-                parameters[key]=cv2.imread(Mask,0)
+                parameters[key]=cp.array(cv2.imread(Mask,0),dtype=np.float32)
+                #parameters[key]=cv2.imread(Mask,0)
+                # Mask values must be 0 or 1 
+                if (parameters[key].min() <0 or parameters[key].max()>1):
+                    raise ValueError("Mask values must be between 0 and 1 ")
 
 
                     
