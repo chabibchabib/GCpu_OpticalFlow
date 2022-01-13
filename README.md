@@ -9,4 +9,7 @@ You will need Python 3 (3.6 or higher) with the following modules:
 - [Scikit-image](https://scikit-image.org/) 0.16.2  or newer  
 - [Scipy](https://scipy.org/) 1.6.3 or newer    
 **For the CPU version:**    
-For the GPU version you will need beside [Numpy] (https://numpy.org/) some additionnal package  
+For the GPU version you will need beside [Numpy] (https://numpy.org/) some additionnal packages and APIs
+- [Cupy](https://cupy.dev/)  
+- [cuCIM API](https://docs.rapids.ai/api/cucim/stable/api.html)
+
