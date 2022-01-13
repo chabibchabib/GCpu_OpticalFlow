@@ -12,7 +12,10 @@ You will need Python 3 (3.6 or higher) with the following modules:
    
 **For the CPU version:**  
 For the GPU version you will first need need an  NVIDIA CUDA GPU with the Compute Capability 3.0 or larger   
-Beside [Numpy] (https://numpy.org/) some additionnal packages and APIs will be needed  
+Beside the previous packages some additionnal oneswith some and APIs will be needed to run the code on GPU 
 - [Cupy](https://cupy.dev/)    
-- [cuCIM API](https://docs.rapids.ai/api/cucim/stable/api.html)  
+- [cuCIM API](https://docs.rapids.ai/api/cucim/stable/api.html)
+The GPU version was tested using [Cupy](https://cupy.dev/) 9.2.0 and [cuCIM API](https://docs.rapids.ai/api/cucim/stable/api.html) 21.10.01  
+
+
 
