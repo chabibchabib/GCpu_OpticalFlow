@@ -11,11 +11,23 @@ You will need Python 3 (3.6 or higher) with the following modules:
 - [OpenCV](https://opencv.org/) 4.2.0 or newer      
    
 **For the CPU version:**  
-For the GPU version you will first need need an  NVIDIA CUDA GPU with the Compute Capability 3.0 or larger   
-Beside the previous packages some additionnal oneswith some and APIs will be needed to run the code on GPU 
+For the GPU version you will first need an  NVIDIA CUDA GPU with the Compute Capability 3.0 or larger.   
+Beside the previous packages some additional ones with some and APIs will be needed to run the code on GPU 
 - [Cupy](https://cupy.dev/)    
 - [cuCIM API](https://docs.rapids.ai/api/cucim/stable/api.html)
 The GPU version was tested using [Cupy](https://cupy.dev/) 9.2.0 and [cuCIM API](https://docs.rapids.ai/api/cucim/stable/api.html) 21.10.01  
+
+## Documentation
+(in process)
+## Test
+Some image sequencees were given in the folder **Images**  in order to test the code.
+**Inputs:**  
+The software will need at least 3 inputs:
+   - The image sequence path 
+   - The name of the first image of the sequence 
+   - The name of the second image of the sequence 
+
+The other parameters were given by default but you can modify them also. 
 
 
 
