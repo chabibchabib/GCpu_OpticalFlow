@@ -7,9 +7,9 @@ You will need Python 3 (3.6 or higher) with the following modules:
 **For the CPU version:**  
 - [Numpy](https://numpy.org/) 1.20.3 or newer  
 - [Scikit-image](https://scikit-image.org/) 0.16.2  or newer  
-- [Scipy](https://scipy.org/) 1.6.3 or newer    
-**For the CPU version:**
-
+- [Scipy](https://scipy.org/) 1.6.3 or newer 
+   
+**For the CPU version:**  
 For the GPU version you will first need need an  NVIDIA CUDA GPU with the Compute Capability 3.0 or larger   
 Beside [Numpy] (https://numpy.org/) some additionnal packages and APIs will be needed  
 - [Cupy](https://cupy.dev/)    
