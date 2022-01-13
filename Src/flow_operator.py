@@ -8,7 +8,6 @@ import time
 import solveur_precond as sop
 
 
-
 ###########################################################
 
 
@@ -16,12 +15,20 @@ def warp_image2(Image, XI, YI):
     ''' We add the flow estimated to the image coordinates, remap them towards the ogriginal image
 
     Parameters:
-        -Image: Image to warp 
-        -XI: x coordinates
-        -YI: y coordinates
 
-    Returns: 
-        WImage; The warped image using the function remap of opencv
+        -Image : ndarray
+            Image to warp
+
+        -XI : ndarray
+            x coordinates for warping
+
+        -YI : ndarray
+            y coordinates used for warping
+
+    Returns:
+
+        WImage :  ndarray
+            The  warped image using the function remap of opencv
 
     '''
 
@@ -39,29 +46,43 @@ def warp_image2(Image, XI, YI):
 
 
 def derivatives(Image1, Image2, u, v, xx, yy, sz):
-    '''This function compute the temporal derivative of  image sequence 
+    '''This function computes the temporal derivative of  image sequence.
+
         Parameters:
 
-            u: horizontal displacement 
-            v: vertical displacement
-            Image1, Image2: images sequence 
-            h: derivative kernel 
-            b: weight used for averaging 
-            sz: the size of the image 
-            Msk: is the mask used to drop the edges effect the energy will not be computed for the pixel edges 
+            Image1 : ndrray
+                The first image of the sequence.
+
+            Image2 : ndrray
+                The second image of the sequence.
+
+            u : ndrray
+                The horizontal displacement field
+
+            v : ndrray 
+                The vertical displacement
+
+            xx : ndrray
+                to define
+
+            yy : ndrray 
+                to define
+
+            sz: ndrray
+                The size of the image 
 
         Returns:
-            It: the temporal derivative   
+
+            It :  ndrray
+                The temporal derivative   
             '''
 
     N = sz[0]
     M = sz[1]
-            
-            
-    #code.interact(local=locals())
+
+    # code.interact(local=locals())
 
     if (('cucim'in sys.modules)):
-        
 
         xx2 = xx+u.get()
         yy2 = yy+v.get()
@@ -70,7 +91,7 @@ def derivatives(Image1, Image2, u, v, xx, yy, sz):
             yy2, np.float32), interpolation=cv2.INTER_CUBIC)
 
         It = WImage-(Image1).get()  # Temporal deriv
-    
+
     if (('cucim'not in sys.modules)):
 
         xx2 = xx+u
@@ -93,14 +114,21 @@ def derivatives(Image1, Image2, u, v, xx, yy, sz):
 
 
 def conv_matrix(F, sz):
-    '''Construction of Laplacien Matrix
-    F: spacial filter it can be [-1,1] or [[-1],[1]] 
-    sz: size of the used image
-    I: rows of non zeros elements
-    J: columns of non zeros elements
-    K: The values of the matrix M 
-    (IE: M(I,J)=K)
-    We distinguish horizontal and vertical filters 
+    '''conv_matrix is used for the construction of Laplacien Matrix
+
+    Parameters:
+
+        F : ndarray
+            Spacial filter to compute spatial derivatives  can be [-1,1] or [[-1],[1]]
+
+        sz : ndarray
+            Size of the used image
+    
+    Returns:
+
+        M: ndarray
+            Laplacian matrix
+    
     '''
     if(F.shape == (1, 2)):
         I = np.hstack(
@@ -133,7 +161,23 @@ def conv_matrix(F, sz):
 
 
 def deriv_charbonnier_over_x(x, sigma, a):
-    ''' Derivatives of the penality over x
+    ''' Evaluate derivative of Charbonnier function divided by argument.
+
+        Parameters :
+
+            x : ndarray or scalar
+                Points where the function will be evaluated
+
+            sigma : float or int
+                to define 
+            a : float or int 
+                to define
+
+        Returns :
+
+            y : ndarray or scalar
+                Evaluation of the function on the point X
+
      '''
     y = 2*a*(sigma**2 + x**2)**(a-1)
     #y = 2 / (a)
@@ -142,32 +186,61 @@ def deriv_charbonnier_over_x(x, sigma, a):
 
 
 def deriv_quadra_over_x(x, sigma):
-    ''' Derivatives of the quadratique penality  penality over x '''
+    ''' Evaluate derivative of quadratic norm divided by argument 
+    
+        Parameters:
+
+            x : ndarray or scalar
+                Points where the function will be evaluated 
+            sigma : float or int 
+                to define
+
+        Returns:
+
+            y : ndarray or scalar
+                Evaluation of the function on the point X
+    '''
     y = 2 / (sigma**2)
     return y
 
 
 def flow_operator(u, v, du, dv, It, Ix, Iy, lmbda, npixels):
     ''' Returns the right hand term for the linear system with the form A * dU = b using the quadratic norm.  
-    The flow equation is linearized around UV
+    The flow equation is linearized around UV.
 
-    Parameters: 
+    Parameters:
 
-        -u:  horizontal displacement
-        -v:   vertical displacement  
-        -du:  horizontal  increment steps
-        -dv:  horizontal and vertical increment steps
-        -It: temporal derivative
-        -Ix:  spatial derivative with respect to x axis 
-        -Iy: spatial derivative with respect to y axis 
-        -S: contains the spatial filters used for Computing the term related to Laplacien S=[ [[-1,1]], [[] [-1],[1] ]]
-        -lmbda: regularization parameter 
-        -eps,a: are the parameter of the penality used 
-        -M1,M2: Matrix of convolution used to compute laplacien term 
-        -ret_Aand ret_b: shared variables between some threads where we store the matrix and the second term computed
+        u : ndarray 
+            The horizontal displacement
+
+        v : ndarray 
+            The vertical displacement  
+
+        du :  
+            The horizontal  increment steps
+
+        dv :  ndarray
+            The horizontal and vertical increment steps
+
+        It : ndarray 
+            Temporal derivative
+
+        Ix : ndarray  
+            Spatial derivative with respect to x axis 
+
+        Iy : ndarray
+            Spatial derivative with respect to y axis 
+
+        lmbda : float
+            The regularization parameter 
+
+        npixels: int
+            Number of pixels in the image used
 
     Returns:
-        -b: the right hand term  
+    
+        b : ndarray
+            The right hand term  
     '''
     # Computing It.Ix and It.*Iy used for the right hand term
     Itx = It*Ix
@@ -189,30 +262,66 @@ def flow_operator(u, v, du, dv, It, Ix, Iy, lmbda, npixels):
 
 
 def compute_flow_base(Image1, Image2, max_iter, max_linear_iter, u, v, lmbda, size_median_filter, uhat, vhat, lambda2, lambda3, remplacement,  Ix, Iy, Ix2, Iy2, Ixy, xx, yy, sz):
-    '''COMPUTE_FLOW_BASE   Base function for computing flow field using u,v displacements as an initialization
-    Parameters: 
+    '''COMPUTE_FLOW_BASE  function for computing flow field using u,v displacements as an initialization.
 
-        - Image1,Image2: Image sequence
-        -max_iter: warping iteration 
-        -max_linear_iter:  maximum number of linearization performed per warping
-        -alpha: a parameter tused to get a weighted energy: Ec=alpha*E_quadratic+(1-alpha)E_penality 
-        -S: contains the spatial filters used for Computing the term related to Laplacien S=[ [[-1,1]], [[] [-1],[1] ]]
-        -size_median_filter: is the size of the used median filter or the size of the neighbors used during LO optimization(The new median formula)
-        -h: spatial derivative kernel 
-        -coef: factor to average the derivatives of the second warped image and the first (used on derivatives functions to get Ix,Iy and It )
-        -uhat,vhat: auxiliar displacement fields 
-        -itersLO: iterations for LO formulation
-        -lambda2: are the parameters 
-        -lmbda: regularization parameter 
-        -sigma_qua: is a parameter related to the quadratic penality   
-        -lambda2: weight for coupling term 
-        -lambda3: weight for non local term term
-        remplacement: binary variable telling us to remplace the fileds by auixilary fields or not 
-        M1,M2: Matrices of convolution used to compute laplacien term 
+    Parameters:
+ 
+        Image1 : ndarray
+            The first image of the sequence. 
+        Image2 : ndarray
+            The second image of the sequence.
+        max_iter : int 
+            Number of warping iterations 
+        max_linear_iter: int
+            The maximum number of linearization steps performed per warping.
+        u: ndarray
+           The horizontal displacement
+        v:  ndarray
+            The vertical displacement
+        lmbda : float
+            The regularization parameter 
+        size_median_filter :  
+            The size of the used median filter or the size of window  used to compute the classical or Li and Osher median filter  
+
+        uhat : ndarray
+            Horizontal auxiliar displacement fields 
+        vhat : ndarray
+            Vertical auxiliar displacement fields 
+
+        lambda2: float 
+            Weight for coupling term 
+        lambda3: float 
+            Weight for non local term 
+        remplacement: bool
+            If True the flow fileds will be remplaced by the auixilary fields.
+        Ix : ndarray
+            Spatial derivative with respect to x axis
+        Iy : ndarray
+            Spatial derivative with respect to y axis
+        Ixx :ndarray
+            The element-wise square of Ix
+        Iyy : ndarray
+            The element-wise square of Iy
+        Ixy : ndarray
+            The element-wise product of Ix and Iy
+        xx :  ndarray
+            to define
+        yy : ndarray
+            to define
+        sz : ndarray
+            to define
 
     Returns:
-        -u,v the new computed flow fields 
-        -uhat,vhat: The auxilary flow fields computed 
+    
+        u : ndarray
+            The new computed  horizontal flow field
+        v : ndarray
+            The new computed  vertical flow field
+        uhat: ndarray
+            The new computed auixilary horizontal flow field
+
+        vhat: ndarray
+            The new computed auixilary vertical flow field 
         '''
     N, M = Image1.shape
     npixels = N*M
@@ -277,7 +386,7 @@ def compute_flow_base(Image1, Image2, max_iter, max_linear_iter, u, v, lmbda, si
 
         # Testing if the norm of the steps is  small less than 10**-6
 
-        if((cp.linalg.norm(du)+cp.linalg.norm(dv))/(npixels) <10**-6):
+        if((cp.linalg.norm(du)+cp.linalg.norm(dv))/(npixels) < 10**-6):
 
             break
         # Print the warping step

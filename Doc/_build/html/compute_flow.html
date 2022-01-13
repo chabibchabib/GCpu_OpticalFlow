@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>compute_flow module &mdash; a  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="energies module" href="energies.html" />
+    <link rel="prev" title="Src" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> a
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Src</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">compute_flow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="energies.html">energies module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_operator.html">flow_operator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="precond.html">precond module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solveur_precond.html">solveur_precond module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">utils module</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">a</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">Src</a> &raquo;</li>
+      <li>compute_flow module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/compute_flow.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-compute_flow">
+<span id="compute-flow-module"></span><h1>compute_flow module<a class="headerlink" href="#module-compute_flow" title="Permalink to this headline"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="compute_flow.compute_flow">
+<span class="sig-prename descclassname"><span class="pre">compute_flow.</span></span><span class="sig-name descname"><span class="pre">compute_flow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Im1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Im2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">py_lev</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ordre_inter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lmbda</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_median_filter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_linear_iter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambda2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambda3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#compute_flow.compute_flow" title="Permalink to this definition"></a></dt>
+<dd><p>Computes the flow fields</p>
+<p>Parameters:</p>
+<blockquote>
+<div><dl>
+<dt>Im1<span class="classifier">ndarray </span></dt><dd><p>The first image of the sequence</p>
+</dd>
+<dt>Im2<span class="classifier">ndarray</span></dt><dd><p>The second image of the sequence</p>
+</dd>
+<dt>py_lev<span class="classifier">int </span></dt><dd><p>Number of the pyramid levels</p>
+</dd>
+<dt>ordre_inter: int </dt><dd><p>The desired order of interpolation must be between 0 and 5.</p>
+<p>That parameter will be used for skimage.resize function.</p>
+<p>For more details: <a class="reference external" href="https://scikit-image.org/docs/stable/api/skimage.transform.html#skimage.transform.resize">https://scikit-image.org/docs/stable/api/skimage.transform.html#skimage.transform.resize</a></p>
+</dd>
+<dt>lmbda: float </dt><dd><p>Tikhonov Parameter</p>
+</dd>
+<dt>size_median_filter<span class="classifier">int </span></dt><dd><p>size of the window used to compute the median filter or Li and Osher filter.</p>
+</dd>
+<dt>max_linear_iter<span class="classifier">int</span></dt><dd><p>The number of the linearization steps desired. In the case for the quadratic norm 1 is enough.</p>
+</dd>
+<dt>max_iter<span class="classifier">int</span></dt><dd><p>The number of warping steps at each level</p>
+</dd>
+<dt>lambda2<span class="classifier">float</span></dt><dd><p>Weight to encourage the flow fields (u,v) and (uhat,vhat) the auxialiary fields to be the same.</p>
+</dd>
+<dt>lambda3<span class="classifier">float</span></dt><dd><p>Wight to smooth the a the auxialiary fields (uhat,vhat)</p>
+</dd>
+<dt>Mask: ndarray </dt><dd><p>Mask array must contain only 0 and 1. The pixels where Mask is zero will be droped during the calculations.</p>
+<p>Mask must be the same size as the image sequence.</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>The final computed flow fields</p>
+<dl class="simple">
+<dt>u<span class="classifier">ndarray</span></dt><dd><p>The horizontal flow</p>
+</dd>
+<dt>v<span class="classifier">ndarray</span></dt><dd><p>The vertical flow</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="compute_flow.compute_image_pyram">
+<span class="sig-prename descclassname"><span class="pre">compute_flow.</span></span><span class="sig-name descname"><span class="pre">compute_image_pyram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Im1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Im2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N_levels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ordre_inter</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#compute_flow.compute_image_pyram" title="Permalink to this definition"></a></dt>
+<dd><p>This function creates  the images used at each level (Pyramid levels).</p>
+<p>Parameters :</p>
+<blockquote>
+<div><dl class="simple">
+<dt>Im1<span class="classifier">ndarray</span></dt><dd><p>The first image of the sequence</p>
+</dd>
+<dt>Im2<span class="classifier">ndarray</span></dt><dd><p>The second image of the sequence</p>
+</dd>
+<dt>ratio<span class="classifier">float</span></dt><dd><p>The downsampling factor</p>
+</dd>
+<dt>N_levels<span class="classifier">int </span></dt><dd><p>Number of levels</p>
+</dd>
+<dt>ordre_inter<span class="classifier">int (between 0 and 5)</span></dt><dd><p>The desired order of interpolation used for the skimage.resize function must be between 0 and 5</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>2 lists P1 and P2 containing the images pyramids</p>
+<dl class="simple">
+<dt>P1<span class="classifier">list of ndarrays</span></dt><dd><p>The first image pyramid</p>
+</dd>
+<dt>P2<span class="classifier">list of ndarrays</span></dt><dd><p>The first second pyramid</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="compute_flow.resample_flow_unequal">
+<span class="sig-prename descclassname"><span class="pre">compute_flow.</span></span><span class="sig-name descname"><span class="pre">resample_flow_unequal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ordre_inter</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#compute_flow.resample_flow_unequal" title="Permalink to this definition"></a></dt>
+<dd><p>This function reshape the flow fields u and v</p>
+<blockquote>
+<div><p>Parameters:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>u<span class="classifier">ndarray</span></dt><dd><p>The horizontal flow field</p>
+</dd>
+<dt>v<span class="classifier">ndarray</span></dt><dd><p>The vertical flow field</p>
+</dd>
+<dt>sz<span class="classifier">ndarray</span></dt><dd><p>The new shape</p>
+</dd>
+<dt>ordre_inter<span class="classifier">int  </span></dt><dd><p>The  desired order of the interpolation used for skimage.resize function must be between 0 and 5</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>u<span class="classifier">ndarray</span></dt><dd><p>The reshaped  horizontal flow field  u</p>
+</dd>
+<dt>v<span class="classifier">ndarray</span></dt><dd><p>The reshaped  verticall flow field  v</p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="Src" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="energies.html" class="btn btn-neutral float-right" title="energies module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, b.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

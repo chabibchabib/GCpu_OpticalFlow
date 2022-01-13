@@ -7,20 +7,35 @@ import energies as en
 import time
 
 
+def compute_image_pyram(Im1, Im2, ratio, N_levels, ordre_inter):
+    ''' This function creates  the images used at each level (Pyramid levels).
 
-def compute_image_pyram(Im1, Im2, ratio, N_levels,ordre_inter):
-    ''' This function creates  the images used at each level (Pyramid levels)
+        Parameters :
 
-        Parameters:
+            Im1 : ndarray
+                The first image of the sequence 
 
-            -Im1: Reference image
-            -Im2: Second images 
-            -ratio: Downsampling factor 
-            -N_levels: Number of levels
-            -ordre_inter: the desired order of interpolation used for the skimage.resize function must be between 0 and 5
-        
+            Im2 : ndarray
+                The second image of the sequence 
+
+            ratio : float
+                The downsampling factor 
+
+            N_levels : int 
+                Number of levels
+
+            ordre_inter : int (between 0 and 5)
+                The desired order of interpolation used for the skimage.resize function must be between 0 and 5
+
         Returns:
-            2 lists P1 and P2 containing the images pyramids  
+
+            2 lists P1 and P2 containing the images pyramids
+
+            P1 : list of ndarrays
+                The first image pyramid
+
+            P2 : list of ndarrays
+                The first second pyramid
 
          '''
 
@@ -42,9 +57,9 @@ def compute_image_pyram(Im1, Im2, ratio, N_levels,ordre_inter):
         sz = np.round(np.array(tmp1.shape, dtype=np.float32)*ratio)
 
         tmp1 = resize(cp.array(tmp1),
-                      (sz[0], sz[1]), anti_aliasing=False, mode='symmetric',order=ordre_inter)
+                      (sz[0], sz[1]), anti_aliasing=False, mode='symmetric', order=ordre_inter)
         tmp2 = resize(cp.array(tmp2),
-                      (sz[0], sz[1]), anti_aliasing=False, mode='symmetric',order=ordre_inter)
+                      (sz[0], sz[1]), anti_aliasing=False, mode='symmetric', order=ordre_inter)
 
         print("Level:", lev, "shape Images :", tmp1.shape)
         P1.append(tmp1)
@@ -55,15 +70,28 @@ def compute_image_pyram(Im1, Im2, ratio, N_levels,ordre_inter):
 def resample_flow_unequal(u, v, sz, ordre_inter):
     '''
     This function reshape the flow fields u and v
+
         Parameters:
 
-            -u: horizontal flow field
-            -v: vertical flow field
-            -sz: The new shape 
-            -ordre_inter: the desired order of the interpolation used for skimage.resize function must be between 0 and 5
+            u : ndarray
+                The horizontal flow field
+
+            v : ndarray
+                The vertical flow field
+
+            sz : ndarray
+                The new shape 
+
+            ordre_inter : int  
+                The  desired order of the interpolation used for skimage.resize function must be between 0 and 5
 
         Returns: 
-            new reshaped flow fields u and v 
+
+            u : ndarray
+                The reshaped  horizontal flow field  u 
+
+            v : ndarray
+                The reshaped  verticall flow field  v
 
     '''
     # Old size
@@ -78,28 +106,60 @@ def resample_flow_unequal(u, v, sz, ordre_inter):
 
 
 def compute_flow(Im1, Im2,  py_lev, factor, ordre_inter, lmbda, size_median_filter,  max_linear_iter, max_iter, lambda2, lambda3, Mask=None):
-    '''Compute the flow fields
+    '''Computes the flow fields
 
         Parameters:
-            -Im1: The first image 
-            -Im2: The second one
-            -u: Initial guest (horizontal flow field)
-            -v: Initial guest (vertical flow field)
-            -py_lev: Number of the pyramid levels
-            -ordre_inter: The desired order of interpolation must be between 0 and 5
-            hat parameter will be used for skimage.resize function. 
-            For more details: https://scikit-image.org/docs/stable/api/skimage.transform.html#skimage.transform.resize
-            -lmbda: Tikhonov Parameter
-            -size_median_filter: size of the median filter 
-            -max_linear_iter: number of the linearization steps desired. In our case for the quadratic norm 1 is good 
-            -max_iter: number of warping steps at each level 
-            -lambda2: weight to encourage (u,v) and (uhat,vhat) the auxialiary fields to be the same 
-            -lambda3: wight to smooth the a the auxialiary fields 
-            -Mask: Mask must contain only 0 and 1, 0 are the element that will be droped during the calculations.
-            Mask must have the same size as the image sequence
+
+            Im1 : ndarray 
+                The first image of the sequence
+
+            Im2 : ndarray
+                The second image of the sequence
+
+
+            py_lev : int 
+                Number of the pyramid levels
+
+            ordre_inter: int 
+                The desired order of interpolation must be between 0 and 5.
+        
+                That parameter will be used for skimage.resize function.
+
+                For more details: https://scikit-image.org/docs/stable/api/skimage.transform.html#skimage.transform.resize
+
+            lmbda: float 
+                Tikhonov Parameter
+
+            size_median_filter : int 
+                size of the window used to compute the median filter or Li and Osher filter.
+
+            max_linear_iter : int
+                The number of the linearization steps desired. In the case for the quadratic norm 1 is enough. 
+
+            max_iter : int
+                The number of warping steps at each level 
+
+            lambda2 : float
+                Weight to encourage the flow fields (u,v) and (uhat,vhat) the auxialiary fields to be the same.
+
+            lambda3 : float
+                Wight to smooth the a the auxialiary fields (uhat,vhat)
+
+            Mask: ndarray 
+                Mask array must contain only 0 and 1. The pixels where Mask is zero will be droped during the calculations.
+
+                Mask must be the same size as the image sequence.
 
         Returns:
-        The computed flow fields 
+        
+            The final computed flow fields
+
+            u : ndarray
+                The horizontal flow
+
+            v : ndarray
+                The vertical flow
+
 
     '''
 
@@ -114,21 +174,22 @@ def compute_flow(Im1, Im2,  py_lev, factor, ordre_inter, lmbda, size_median_filt
 
     #Mask = cp.ones_like(Mask)*1.0
 
-    #Check the shape of the image sequence 
-    if(Im1.shape!=Im2.shape):
+    # Check the shape of the image sequence
+    if(Im1.shape != Im2.shape):
         raise ValueError("Images must be the same shape")
-    
-    v, u = optical_flow_tvl1(cp.array(Im1), cp.array(Im2),attachment=20)
-    Im1=np.array(Im1,dtype=np.float32)
-    Im2=np.array(Im2,dtype=np.float32)
 
-    #Check order interpolation 
-    if(ordre_inter <0 or ordre_inter >5 ):
-        raise ValueError("The interpolation order must be an int between 0 and 5\nFor more details: https://scikit-image.org/docs/stable/api/skimage.transform.html#skimage.transform.resize ")
+    v, u = optical_flow_tvl1(cp.array(Im1), cp.array(Im2), attachment=20)
+    Im1 = np.array(Im1, dtype=np.float32)
+    Im2 = np.array(Im2, dtype=np.float32)
+
+    # Check order interpolation
+    if(ordre_inter < 0 or ordre_inter > 5):
+        raise ValueError(
+            "The interpolation order must be an int between 0 and 5\nFor more details: https://scikit-image.org/docs/stable/api/skimage.transform.html#skimage.transform.resize ")
     # The pyramid images
 
     P1, P2 = compute_image_pyram(
-        Im1, Im2, 1/factor, py_lev,ordre_inter)
+        Im1, Im2, 1/factor, py_lev, ordre_inter)
     # P1_gnc,P2_gnc=compute_image_pyram(Im1,Im2,1/gnc_factor,gnc_pyram_levels,math.sqrt(gnc_spacing)/math.sqrt(2))
 
     uhat = u
@@ -188,7 +249,7 @@ def compute_flow(Im1, Im2,  py_lev, factor, ordre_inter, lmbda, size_median_filt
             # Cast Image and dropping the chosen pixels in Mask
             Image1 = Image1*Msk
         else:
-            Msk=None
+            Msk = None
         Image2 = cp.array(Image2)
         # Compute Ix^2, Iy^2 and Ix.*Iy
         Ix2 = Ix*Ix
@@ -203,8 +264,3 @@ def compute_flow(Im1, Im2,  py_lev, factor, ordre_inter, lmbda, size_median_filt
     u = uhat
     v = vhat
     return u, v
-
-
-
-
-

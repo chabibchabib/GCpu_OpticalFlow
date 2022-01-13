@@ -1,23 +1,41 @@
 import numpy as np
 from utils import *
 
+
 def Px(Ix2, Iy2, lmbda, lmbda2, N, M, x):
-    '''This function allow us to compute the product of P^-1*x without storing P^-1
-    where P is the given preconditioner and x is a given vector. This function will be used 
-    to construct the preconditioned version of the Minres algorithm.
+    '''This function is used to compute the product of P^-1*x without storing the matrix P^-1.
+    Where P is the given preconditioner and x is a given vector.
+    This function will be used to construct the preconditioned version of the Minres solver.
 
         Parameters:
-            -Ix2: The square of the image derivative with respect to x 
-            -Iy2: The square of the image derivative with respect to y
-            -lmbda: Tikhonov parameter
-            -lmbda2: the weight used for the non local term  
-            -N: number of the image rows
-            -M: number of the image cols 
-            -x: a 2*M*N given vector 
+
+            Ix2 : array
+                The elemnt-wise square of the image derivative with respect to x
+
+            Iy2 : ndarray
+                The elemnt-wise square of the image derivative with respect to y
+
+            lmbda : float
+                The  parameter of Tikhonov
+
+            lmbda2 : float
+                A weight used to take into account the non local term 
+
+            N : int
+                The number of the image rows
+
+            M : int
+                number of the image cols 
+
+            x : ndarray
+                A 2*M*N given vector 
 
         Returns:
-            res: a 2*M*N vector res=P^-1*x
-                      '''
+
+            res : ndarray
+            A 2*M*N vector res=P^-1*x
+                      
+        '''
 
     # Number of pixels
     npixels = N*M

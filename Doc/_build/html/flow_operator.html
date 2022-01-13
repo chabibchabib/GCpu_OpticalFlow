@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>flow_operator module &mdash; a  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="precond module" href="precond.html" />
+    <link rel="prev" title="energies module" href="energies.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> a
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Src</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="compute_flow.html">compute_flow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="energies.html">energies module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">flow_operator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="precond.html">precond module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solveur_precond.html">solveur_precond module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">utils module</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">a</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">Src</a> &raquo;</li>
+      <li>flow_operator module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/flow_operator.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-flow_operator">
+<span id="flow-operator-module"></span><h1>flow_operator module<a class="headerlink" href="#module-flow_operator" title="Permalink to this headline"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="flow_operator.compute_flow_base">
+<span class="sig-prename descclassname"><span class="pre">flow_operator.</span></span><span class="sig-name descname"><span class="pre">compute_flow_base</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Image1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Image2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_linear_iter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lmbda</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_median_filter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uhat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vhat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambda2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambda3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">remplacement</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Iy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ix2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Iy2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ixy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sz</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flow_operator.compute_flow_base" title="Permalink to this definition"></a></dt>
+<dd><p>COMPUTE_FLOW_BASE  function for computing flow field using u,v displacements as an initialization.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>Image1<span class="classifier">ndarray</span></dt><dd><p>The first image of the sequence.</p>
+</dd>
+<dt>Image2<span class="classifier">ndarray</span></dt><dd><p>The second image of the sequence.</p>
+</dd>
+<dt>max_iter<span class="classifier">int </span></dt><dd><p>Number of warping iterations</p>
+</dd>
+<dt>max_linear_iter: int</dt><dd><p>The maximum number of linearization steps performed per warping.</p>
+</dd>
+<dt>u: ndarray</dt><dd><p>The horizontal displacement</p>
+</dd>
+<dt>v:  ndarray</dt><dd><p>The vertical displacement</p>
+</dd>
+<dt>lmbda<span class="classifier">float</span></dt><dd><p>The regularization parameter</p>
+</dd>
+<dt>size_median_filter<span class="classifier"></span></dt><dd><p>The size of the used median filter or the size of window  used to compute the classical or Li and Osher median filter</p>
+</dd>
+<dt>uhat<span class="classifier">ndarray</span></dt><dd><p>Horizontal auxiliar displacement fields</p>
+</dd>
+<dt>vhat<span class="classifier">ndarray</span></dt><dd><p>Vertical auxiliar displacement fields</p>
+</dd>
+<dt>lambda2: float </dt><dd><p>Weight for coupling term</p>
+</dd>
+<dt>lambda3: float </dt><dd><p>Weight for non local term</p>
+</dd>
+<dt>remplacement: bool</dt><dd><p>If True the flow fileds will be remplaced by the auixilary fields.</p>
+</dd>
+<dt>Ix<span class="classifier">ndarray</span></dt><dd><p>Spatial derivative with respect to x axis</p>
+</dd>
+<dt>Iy<span class="classifier">ndarray</span></dt><dd><p>Spatial derivative with respect to y axis</p>
+</dd>
+<dt>Ixx :ndarray</dt><dd><p>The element-wise square of Ix</p>
+</dd>
+<dt>Iyy<span class="classifier">ndarray</span></dt><dd><p>The element-wise square of Iy</p>
+</dd>
+<dt>Ixy<span class="classifier">ndarray</span></dt><dd><p>The element-wise product of Ix and Iy</p>
+</dd>
+<dt>xx<span class="classifier">ndarray</span></dt><dd><p>to define</p>
+</dd>
+<dt>yy<span class="classifier">ndarray</span></dt><dd><p>to define</p>
+</dd>
+<dt>sz<span class="classifier">ndarray</span></dt><dd><p>to define</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>u<span class="classifier">ndarray</span></dt><dd><p>The new computed  horizontal flow field</p>
+</dd>
+<dt>v<span class="classifier">ndarray</span></dt><dd><p>The new computed  vertical flow field</p>
+</dd>
+<dt>uhat: ndarray</dt><dd><p>The new computed auixilary horizontal flow field</p>
+</dd>
+<dt>vhat: ndarray</dt><dd><p>The new computed auixilary vertical flow field</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="flow_operator.conv_matrix">
+<span class="sig-prename descclassname"><span class="pre">flow_operator.</span></span><span class="sig-name descname"><span class="pre">conv_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">F</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sz</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flow_operator.conv_matrix" title="Permalink to this definition"></a></dt>
+<dd><p>conv_matrix is used for the construction of Laplacien Matrix</p>
+<p>Parameters:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>F<span class="classifier">ndarray</span></dt><dd><p>Spacial filter to compute spatial derivatives  can be [-1,1] or [[-1],[1]]</p>
+</dd>
+<dt>sz<span class="classifier">ndarray</span></dt><dd><p>Size of the used image</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>M: ndarray</dt><dd><p>Laplacian matrix</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="flow_operator.deriv_charbonnier_over_x">
+<span class="sig-prename descclassname"><span class="pre">flow_operator.</span></span><span class="sig-name descname"><span class="pre">deriv_charbonnier_over_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flow_operator.deriv_charbonnier_over_x" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluate derivative of Charbonnier function divided by argument.</p>
+<p>Parameters :</p>
+<blockquote>
+<div><dl class="simple">
+<dt>x<span class="classifier">ndarray or scalar</span></dt><dd><p>Points where the function will be evaluated</p>
+</dd>
+<dt>sigma<span class="classifier">float or int</span></dt><dd><p>to define</p>
+</dd>
+<dt>a<span class="classifier">float or int </span></dt><dd><p>to define</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Returns :</p>
+<blockquote>
+<div><dl class="simple">
+<dt>y<span class="classifier">ndarray or scalar</span></dt><dd><p>Evaluation of the function on the point X</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="flow_operator.deriv_quadra_over_x">
+<span class="sig-prename descclassname"><span class="pre">flow_operator.</span></span><span class="sig-name descname"><span class="pre">deriv_quadra_over_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flow_operator.deriv_quadra_over_x" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluate derivative of quadratic norm divided by argument</p>
+<p>Parameters:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>x<span class="classifier">ndarray or scalar</span></dt><dd><p>Points where the function will be evaluated</p>
+</dd>
+<dt>sigma<span class="classifier">float or int </span></dt><dd><p>to define</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>y<span class="classifier">ndarray or scalar</span></dt><dd><p>Evaluation of the function on the point X</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="flow_operator.derivatives">
+<span class="sig-prename descclassname"><span class="pre">flow_operator.</span></span><span class="sig-name descname"><span class="pre">derivatives</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Image1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Image2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sz</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flow_operator.derivatives" title="Permalink to this definition"></a></dt>
+<dd><p>This function computes the temporal derivative of  image sequence.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>Image1<span class="classifier">ndrray</span></dt><dd><p>The first image of the sequence.</p>
+</dd>
+<dt>Image2<span class="classifier">ndrray</span></dt><dd><p>The second image of the sequence.</p>
+</dd>
+<dt>u<span class="classifier">ndrray</span></dt><dd><p>The horizontal displacement field</p>
+</dd>
+<dt>v<span class="classifier">ndrray </span></dt><dd><p>The vertical displacement</p>
+</dd>
+<dt>xx<span class="classifier">ndrray</span></dt><dd><p>to define</p>
+</dd>
+<dt>yy<span class="classifier">ndrray </span></dt><dd><p>to define</p>
+</dd>
+<dt>sz: ndrray</dt><dd><p>The size of the image</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>It<span class="classifier">ndrray</span></dt><dd><p>The temporal derivative</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="flow_operator.flow_operator">
+<span class="sig-prename descclassname"><span class="pre">flow_operator.</span></span><span class="sig-name descname"><span class="pre">flow_operator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">du</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">It</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Iy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lmbda</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">npixels</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flow_operator.flow_operator" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the right hand term for the linear system with the form A * dU = b using the quadratic norm.  
+The flow equation is linearized around UV.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>u<span class="classifier">ndarray </span></dt><dd><p>The horizontal displacement</p>
+</dd>
+<dt>v<span class="classifier">ndarray </span></dt><dd><p>The vertical displacement</p>
+</dd>
+<dt>du<span class="classifier"></span></dt><dd><p>The horizontal  increment steps</p>
+</dd>
+<dt>dv<span class="classifier">ndarray</span></dt><dd><p>The horizontal and vertical increment steps</p>
+</dd>
+<dt>It<span class="classifier">ndarray </span></dt><dd><p>Temporal derivative</p>
+</dd>
+<dt>Ix<span class="classifier">ndarray  </span></dt><dd><p>Spatial derivative with respect to x axis</p>
+</dd>
+<dt>Iy<span class="classifier">ndarray</span></dt><dd><p>Spatial derivative with respect to y axis</p>
+</dd>
+<dt>lmbda<span class="classifier">float</span></dt><dd><p>The regularization parameter</p>
+</dd>
+<dt>npixels: int</dt><dd><p>Number of pixels in the image used</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>b<span class="classifier">ndarray</span></dt><dd><p>The right hand term</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="flow_operator.warp_image2">
+<span class="sig-prename descclassname"><span class="pre">flow_operator.</span></span><span class="sig-name descname"><span class="pre">warp_image2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">XI</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">YI</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flow_operator.warp_image2" title="Permalink to this definition"></a></dt>
+<dd><p>We add the flow estimated to the image coordinates, remap them towards the ogriginal image</p>
+<p>Parameters:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>-Image<span class="classifier">ndarray</span></dt><dd><p>Image to warp</p>
+</dd>
+<dt>-XI<span class="classifier">ndarray</span></dt><dd><p>x coordinates for warping</p>
+</dd>
+<dt>-YI<span class="classifier">ndarray</span></dt><dd><p>y coordinates used for warping</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>WImage<span class="classifier">ndarray</span></dt><dd><p>The  warped image using the function remap of opencv</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="energies.html" class="btn btn-neutral float-left" title="energies module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="precond.html" class="btn btn-neutral float-right" title="precond module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, b.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

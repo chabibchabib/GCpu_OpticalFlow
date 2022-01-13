@@ -9,18 +9,36 @@ from precond import Px
 
 def my_dot2(Ix2, Iy2, Ixy, lmbda, lmbda2, U, N, M):
     ''' The matrix vector product of the unconstructed optical flow matrix 
-    A and a vector U. 
+    A and a vector U
+
         Parameters:
-            -Ix2: Ix^2 square of the spatial derivative with respect to x (Ix) 
-            -Iy2: Iy^2 square of the spatial derivatives with respect to y (Iy)
-            -Ixy: The product of Ix and Iy 
-            -lmbda: the parameter of regularization
-            -lmbda2: the term related to the auxiliary fields uhat and vhat  
-            -U: a 2*M*N vector  
-            -N: number of the image rows 
-            -M: number of the image cols
-        Returns: 
-            res the product of A*U   
+
+            Ix2 : ndarray
+                Ix^2 square of the spatial derivative with respect to x (Ix)
+
+            Iy2: ndarray 
+                Iy^2 square of the spatial derivatives with respect to y (Iy)
+
+            Ixy: ndarray
+                The product of Ix and Iy 
+
+            lmbda: float
+                The parameter of regularization
+
+            lmbda2: float 
+                The term related to the auxiliary fields uhat and vhat
+
+            U: ndarray
+                An 2*M*N vector
+            N: int
+                Number of the image rows. 
+            -M: int
+                Number of the image cols
+
+        Returns:
+
+            res: ndarray
+                The product of A*U   
              '''
     npix = N*M  # Number of pixels
 
@@ -51,31 +69,53 @@ def minres(Ix2, Iy2, Ixy, lmbda, lmbda2, b, maxiter, rtol, N, M):
     This is an implementation of minres code used in scipy.sparse and the funcion minres of Matlab 
     But it's adapted to solve the pb of the form P^-1*A*x=P^-1*b ; where A is the optical flow matrix, b the right hand term
     And P is a chosen Preconditionner.
-        A has the form A=[Ix^2+lmbda2+2*laplacian Matrix Ixy; Ixy Iy^2+lmbda2+2*laplacian Matrix ]
-        The right hand term must be a vecor containing 2*M*N element where (N,M) is the dimension of the images used.
-        A is an 2*M*N square symmetric matrix 
+
+    A has the following form: A=[Ix^2+lmbda2+2*laplacian Matrix Ixy; Ixy Iy^2+lmbda2+2*laplacian Matrix ].
+
+    The right hand term must be a vecor containing 2*M*N element where (N,M) is the dimension of the images used.
+    A is a 2*M*N square symmetric matrix.
+
     In this implementation we will not construct the matrices A and P, we will only use the 
     functions my_dot (and the function Px respectively) to show the algorithm how to cumpute the Matrix-vector product of Ax (and 
     P^-1*x  respectively).
+    
     For more information about the solver: https://web.stanford.edu/group/SOL/software/minres/
 
-
         Parameters:
-            -Ix2: The elementwise square of the  matrix Ix, where Ix is the spatial derivative with respect to x  of the refererence image.
-            -Iy2: The elementwise square of the  matrix Iy, where Iy is the spatial derivative with respect to y of the refererence image.
-            -Ixy: The elementwise product of Ix and Iy
-            -lmbda: The parameter of regularization
-            -lmbda2: The term related to the auxiliary fields uhat and vhat  
-            -b: The right hand term 
-            -maxiter: Maximum number of iterations 
-            -rtol: relative tolerance  
-            -N: number of rows of the image 
-            -M: number of cols of the image 
-        Returns: 
-            The solution x
+
+            Ix2 : ndarray
+                The elementwise square of the  matrix Ix, where Ix is the spatial derivative with respect to x  of the refererence image.
+
+            Iy2 : ndarray
+                The elementwise square of the  matrix Iy, where Iy is the spatial derivative with respect to y of the refererence image.
+
+            Ixy : ndarray
+                The elementwise product of Ix and Iy
+
+            lmbda : float
+                The parameter of regularization
+
+            lmbda2 : float
+                The term related to the auxiliary fields uhat and vhat 
+
+            b : ndarray
+                The right hand term 
+
+            maxiter : int
+                Maximum number of iterations 
+
+            rtol: float
+                Relative tolerance  
+            N : int
+                Number of rows of the image 
+            M : int
+                Number of cols of the image
+
+        Returns:
+
             We can also display the variable istop to know the reason why the solver leaved loop   
-
-
+            x : ndarray
+                The solution of the system Ax=b
     '''
     # Initialization
     eps = 1e-11

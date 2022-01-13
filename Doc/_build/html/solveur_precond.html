@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>solveur_precond module &mdash; a  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="utils module" href="utils.html" />
+    <link rel="prev" title="precond module" href="precond.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> a
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Src</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="compute_flow.html">compute_flow module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="energies.html">energies module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_operator.html">flow_operator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="precond.html">precond module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">solveur_precond module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">utils module</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">a</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="modules.html">Src</a> &raquo;</li>
+      <li>solveur_precond module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/solveur_precond.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-solveur_precond">
+<span id="solveur-precond-module"></span><h1>solveur_precond module<a class="headerlink" href="#module-solveur_precond" title="Permalink to this headline"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="solveur_precond.minres">
+<span class="sig-prename descclassname"><span class="pre">solveur_precond.</span></span><span class="sig-name descname"><span class="pre">minres</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ix2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Iy2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ixy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lmbda</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lmbda2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxiter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#solveur_precond.minres" title="Permalink to this definition"></a></dt>
+<dd><p>This is an implementation of minres code used in scipy.sparse and the funcion minres of Matlab 
+But it’s adapted to solve the pb of the form P^-1*A*x=P^-1*b ; where A is the optical flow matrix, b the right hand term
+And P is a chosen Preconditionner.</p>
+<p>A has the following form: A=[Ix^2+lmbda2+2*laplacian Matrix Ixy; Ixy Iy^2+lmbda2+2*laplacian Matrix ].</p>
+<p>The right hand term must be a vecor containing 2*M*N element where (N,M) is the dimension of the images used.
+A is a 2*M*N square symmetric matrix.</p>
+<p>In this implementation we will not construct the matrices A and P, we will only use the 
+functions my_dot (and the function Px respectively) to show the algorithm how to cumpute the Matrix-vector product of Ax (and 
+P^-1*x  respectively).</p>
+<p>For more information about the solver: <a class="reference external" href="https://web.stanford.edu/group/SOL/software/minres/">https://web.stanford.edu/group/SOL/software/minres/</a></p>
+<blockquote>
+<div><p>Parameters:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>Ix2<span class="classifier">ndarray</span></dt><dd><p>The elementwise square of the  matrix Ix, where Ix is the spatial derivative with respect to x  of the refererence image.</p>
+</dd>
+<dt>Iy2<span class="classifier">ndarray</span></dt><dd><p>The elementwise square of the  matrix Iy, where Iy is the spatial derivative with respect to y of the refererence image.</p>
+</dd>
+<dt>Ixy<span class="classifier">ndarray</span></dt><dd><p>The elementwise product of Ix and Iy</p>
+</dd>
+<dt>lmbda<span class="classifier">float</span></dt><dd><p>The parameter of regularization</p>
+</dd>
+<dt>lmbda2<span class="classifier">float</span></dt><dd><p>The term related to the auxiliary fields uhat and vhat</p>
+</dd>
+<dt>b<span class="classifier">ndarray</span></dt><dd><p>The right hand term</p>
+</dd>
+<dt>maxiter<span class="classifier">int</span></dt><dd><p>Maximum number of iterations</p>
+</dd>
+<dt>rtol: float</dt><dd><p>Relative tolerance</p>
+</dd>
+<dt>N<span class="classifier">int</span></dt><dd><p>Number of rows of the image</p>
+</dd>
+<dt>M<span class="classifier">int</span></dt><dd><p>Number of cols of the image</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><p>We can also display the variable istop to know the reason why the solver leaved loop   
+x : ndarray</p>
+<blockquote>
+<div><p>The solution of the system Ax=b</p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="solveur_precond.my_dot2">
+<span class="sig-prename descclassname"><span class="pre">solveur_precond.</span></span><span class="sig-name descname"><span class="pre">my_dot2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ix2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Iy2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ixy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lmbda</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lmbda2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">U</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#solveur_precond.my_dot2" title="Permalink to this definition"></a></dt>
+<dd><p>The matrix vector product of the unconstructed optical flow matrix 
+A and a vector U</p>
+<blockquote>
+<div><p>Parameters:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>Ix2<span class="classifier">ndarray</span></dt><dd><p>Ix^2 square of the spatial derivative with respect to x (Ix)</p>
+</dd>
+<dt>Iy2: ndarray </dt><dd><p>Iy^2 square of the spatial derivatives with respect to y (Iy)</p>
+</dd>
+<dt>Ixy: ndarray</dt><dd><p>The product of Ix and Iy</p>
+</dd>
+<dt>lmbda: float</dt><dd><p>The parameter of regularization</p>
+</dd>
+<dt>lmbda2: float </dt><dd><p>The term related to the auxiliary fields uhat and vhat</p>
+</dd>
+<dt>U: ndarray</dt><dd><p>An 2*M*N vector</p>
+</dd>
+<dt>N: int</dt><dd><p>Number of the image rows.</p>
+</dd>
+<dt>-M: int</dt><dd><p>Number of the image cols</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>Returns:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>res: ndarray</dt><dd><p>The product of A*U</p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="precond.html" class="btn btn-neutral float-left" title="precond module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="utils.html" class="btn btn-neutral float-right" title="utils module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, b.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
