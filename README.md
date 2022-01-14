@@ -20,7 +20,7 @@ The GPU version was tested using [Cupy](https://cupy.dev/) 9.2.0 and [cuCIM API]
 ## Documentation
 **In progress**
 ## Test
-Some image sequences were given in the folder **Images**  in order to test the code.
+Some image sequences were given in the folder **Images**  in order to test the code.  
 **Inputs:**  
 The software will need at least 3 inputs:
    - The image sequence path 
