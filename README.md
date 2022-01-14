@@ -27,7 +27,7 @@ The software will need at least 3 inputs:
    - The name of the first image of the sequence 
    - The name of the second image of the sequence 
 
-The other parameters were given by default, but you can modify them also using the keywords as in the documentation. 
+The other parameters were given by default, but you can modify them also using the keywords as in the documentation.   
 **Outputs:**  
 Two **npy** files will be generated in the end of running:
    - **u_cucim.npy** the horizontal flow field
