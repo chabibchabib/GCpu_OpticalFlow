@@ -18,16 +18,23 @@ Beside the previous packages some additional ones with some and APIs will be nee
 The GPU version was tested using [Cupy](https://cupy.dev/) 9.2.0 and [cuCIM API](https://docs.rapids.ai/api/cucim/stable/api.html) 21.10.01  
 
 ## Documentation
-(in process)
+**In progress**
 ## Test
-Some image sequencees were given in the folder **Images**  in order to test the code.
+Some image sequences were given in the folder **Images**  in order to test the code.
 **Inputs:**  
 The software will need at least 3 inputs:
    - The image sequence path 
    - The name of the first image of the sequence 
    - The name of the second image of the sequence 
 
-The other parameters were given by default but you can modify them also. 
+The other parameters were given by default, but you can modify them also using the keywords as in the documentation. 
+**Outputs:**  
+Two **npy** files will be generated in the end of running:
+   - **u_cucim.npy** the horizontal flow field
+   - **v_cucim.npy** the vertical flow field
+
+To calculate the strain field, you can use the [function gradient of numpy](https://numpy.org/doc/stable/reference/generated/numpy.gradient.html) or of [cupy](https://docs.cupy.dev/en/stable/reference/generated/cupy.gradient.html) if you are using the graphic card.
+
 
 
 
