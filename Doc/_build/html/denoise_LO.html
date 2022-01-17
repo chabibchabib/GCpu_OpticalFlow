@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>precond module &mdash; CGPU Optical Flow  documentation</title>
+  <title>denoise_LO module &mdash; CGPU Optical Flow  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -18,8 +18,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="solveur_precond module" href="solveur_precond.html" />
-    <link rel="prev" title="flow_operator module" href="flow_operator.html" /> 
+    <link rel="next" title="energies module" href="energies.html" />
+    <link rel="prev" title="compute_flow module" href="compute_flow.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -41,10 +41,10 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">Src</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="compute_flow.html">compute_flow module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="denoise_LO.html">denoise_LO module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">denoise_LO module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="energies.html">energies module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="flow_operator.html">flow_operator module</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">precond module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="precond.html">precond module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="solveur_precond.html">solveur_precond module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="utils.html">utils module</a></li>
 </ul>
@@ -66,9 +66,9 @@
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="modules.html">Src</a> &raquo;</li>
-      <li>precond module</li>
+      <li>denoise_LO module</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/precond.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/denoise_LO.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -76,40 +76,52 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-precond">
-<span id="precond-module"></span><h1>precond module<a class="headerlink" href="#module-precond" title="Permalink to this headline"></a></h1>
+  <section id="module-denoise_LO">
+<span id="denoise-lo-module"></span><h1>denoise_LO module<a class="headerlink" href="#module-denoise_LO" title="Permalink to this headline"></a></h1>
 <dl class="py function">
-<dt class="sig sig-object py" id="precond.Px">
-<span class="sig-prename descclassname"><span class="pre">precond.</span></span><span class="sig-name descname"><span class="pre">Px</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ix2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Iy2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lmbda</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lmbda2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#precond.Px" title="Permalink to this definition"></a></dt>
-<dd><p>This function is used to compute the product of P^-1*x without storing the matrix P^-1.
-Where P is the given preconditioner and x is a given vector.
-This function will be used to construct the preconditioned version of the Minres solver.</p>
-<blockquote>
-<div><p>Parameters:</p>
-<blockquote>
-<div><dl class="simple">
-<dt>Ix2<span class="classifier">array</span></dt><dd><p>The elemnt-wise square of the image derivative with respect to x</p>
+<dt class="sig sig-object py" id="denoise_LO.denoise_LO">
+<span class="sig-prename descclassname"><span class="pre">denoise_LO.</span></span><span class="sig-name descname"><span class="pre">denoise_LO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">un</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">median_filter_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambda23</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">niters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#denoise_LO.denoise_LO" title="Permalink to this definition"></a></dt>
+<dd><p>Denoising using the Li &amp; Osher median formula
+Y. Li and Osher “A New Median Formula with Applications to PDE Based</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>un<span class="classifier">ndarray</span></dt><dd><p>First array to be filtred</p>
 </dd>
-<dt>Iy2<span class="classifier">ndarray</span></dt><dd><p>The elemnt-wise square of the image derivative with respect to y</p>
+<dt>vn<span class="classifier">ndarray</span></dt><dd><p>Second array to be filtred</p>
 </dd>
-<dt>lmbda<span class="classifier">float</span></dt><dd><p>The  parameter of Tikhonov</p>
+<dt>median_filter_size<span class="classifier">int</span></dt><dd><p>The window size used</p>
 </dd>
-<dt>lmbda2<span class="classifier">float</span></dt><dd><p>A weight used to take into account the non local term</p>
+<dt>lambda23<span class="classifier">float</span></dt><dd><p>The factor used for Li and Osher formulation</p>
 </dd>
-<dt>N<span class="classifier">int</span></dt><dd><p>The number of the image rows</p>
-</dd>
-<dt>M<span class="classifier">int</span></dt><dd><p>number of the image cols</p>
-</dd>
-<dt>x<span class="classifier">ndarray</span></dt><dd><p>A 2*M*N given vector</p>
+<dt>niters<span class="classifier">int </span></dt><dd><p>Number of iterations</p>
 </dd>
 </dl>
-</div></blockquote>
-<p>Returns:</p>
-<blockquote>
-<div><p>res : ndarray
-A 2*M*N vector res=P^-1*x</p>
-</div></blockquote>
-</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="denoise_LO.im2col">
+<span class="sig-prename descclassname"><span class="pre">denoise_LO.</span></span><span class="sig-name descname"><span class="pre">im2col</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mtx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mtx2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#denoise_LO.im2col" title="Permalink to this definition"></a></dt>
+<dd><p>This function allow us to rearrange the  blocks of two matrices into columns.</p>
+<dl class="simple">
+<dt>Parameters: </dt><dd><dl class="simple">
+<dt>mtx<span class="classifier">ndarray</span></dt><dd><p>The first image</p>
+</dd>
+<dt>-mtx2<span class="classifier">ndarray</span></dt><dd><p>The second array</p>
+</dd>
+<dt>block_size: </dt><dd><p>The size of the blocks</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns:</dt><dd><dl class="simple">
+<dt>result<span class="classifier">ndarray</span></dt><dd><p>Contains the blocks of the first image in  columns</p>
+</dd>
+<dt>result2<span class="classifier">ndarray</span></dt><dd><p>Contains the blocks of the second image in  columns</p>
+</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -118,8 +130,8 @@ A 2*M*N vector res=P^-1*x</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="flow_operator.html" class="btn btn-neutral float-left" title="flow_operator module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="solveur_precond.html" class="btn btn-neutral float-right" title="solveur_precond module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="compute_flow.html" class="btn btn-neutral float-left" title="compute_flow module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="energies.html" class="btn btn-neutral float-right" title="energies module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

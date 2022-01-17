@@ -1,14 +1,35 @@
 import numpy as np
-from math import floor,ceil
-from numpy  import matlib
-#from cupy import repmat
-'''In This file we will implement the Li and Osher median filter
-This Filter will be applied after each warping step in order  
+from math import floor, ceil
+from numpy import matlib
+
+'''In This file we will implement the Li and Osher median filter:
+Y. Li and Osher "A New Median Formula with Applications to PDE Based
+
+This Filter will be applied after each warping step.
+
 '''
-#####################################################
 
 
 def im2col(mtx, mtx2, block_size):
+    '''
+    This function allow us to rearrange the  blocks of two matrices into columns.
+
+    Parameters: 
+        mtx : ndarray
+            The first image 
+        -mtx2 : ndarray
+            The second array
+
+        block_size: 
+            The size of the blocks 
+
+    Returns:
+        result : ndarray
+            Contains the blocks of the first image in  columns
+        result2 : ndarray
+            Contains the blocks of the second image in  columns
+    '''
+
     mtx_shape = mtx.shape
     sx = mtx_shape[0] - block_size[0] + 1
     sy = mtx_shape[1] - block_size[1] + 1
@@ -23,10 +44,24 @@ def im2col(mtx, mtx2, block_size):
             result2[:, i * sx + j] = mtx2[j:j + block_size[0],
                                           i:i + block_size[1]].ravel(order='F')
     return [result, result2]
-######################################################
 
 
 def denoise_LO(un, vn, median_filter_size, lambda23, niters):
+    '''Denoising using the Li & Osher median formula
+    Y. Li and Osher "A New Median Formula with Applications to PDE Based
+
+    Parameters:
+        un : ndarray
+            First array to be filtred 
+        vn : ndarray
+            Second array to be filtred 
+        median_filter_size : int
+            The window size used 
+        lambda23 : float
+            The factor used for Li and Osher formulation
+        niters : int 
+            Number of iterations  
+    '''
     mfsize = median_filter_size
     hfsize = floor(mfsize/2)
     n = (mfsize*mfsize-1)/2
@@ -57,18 +92,17 @@ def denoise_LO(un, vn, median_filter_size, lambda23, niters):
     return [uo, vo]
 
 
-'''u = np.random.rand(3, 4)
-v = np.random.rand(3, 4)'''
-
-'''un=np.array([[1 ,2 ,3 ,4 ], [5 ,6 ,7 ,8 ] ,[9 ,10 ,11 ,12 ],[13, 14,15,16]])
-un=np.array([[1 ,2 ,3 ], [4 ,5 ,6]])
-un=np.array([[0.8147  ,   0.1270   ,  0.6324], [0.9058   ,  0.9134   , 0.0975]])
-
+'''
 u = np.round(10*np.random.rand(5, 5))
 v = np.round(10*np.random.rand(5, 5))
+print('u\n')
+print(u)
+print('v\n')
+print(v)
+
 median_filter_size = 3  # 2
 lambda23 = 100
 niters = 1
 u0, v0 = denoise_LO(u, v, median_filter_size, lambda23, niters)
-print(u0)
-'''
+print('u\n',u0)
+print('v\n',v0)'''

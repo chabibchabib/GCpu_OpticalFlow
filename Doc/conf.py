@@ -17,9 +17,9 @@ sys.path.insert(0, os.path.abspath('../Src/'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'a'
-copyright = '2022, b'
-author = 'b'
+project = 'CGPU Optical Flow'
+copyright = '2022, A. CHABIB, JF. WITZ, P. GOSSELET'
+author = 'A. CHABIB, JF. WITZ, P. GOSSELET'
 
 
 # -- General configuration ---------------------------------------------------
