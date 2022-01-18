@@ -2,8 +2,8 @@
 This code is an accelerated open-source software for 2D optical flow estimation and mechanical strain.   
 The code is based on [D. Sun](https://cs.brown.edu/people/dqsun/pubs/cvpr_2010_flow.pdf) method with some improvements. 
 ## Requirements
-There are two versions of the software: a CPU and a GPU version.
-You will need Python 3 (3.6 or higher) with the following modules:  
+There are two versions of the software: a CPU and a GPU version.  
+To use the code, you  will need Python 3 (3.6 or higher) with the following modules:  
 **For the CPU version:**  
 - [Numpy](https://numpy.org/) 1.20.3 or newer     
 - [Scikit-image](https://scikit-image.org/) 0.16.2  or newer    
