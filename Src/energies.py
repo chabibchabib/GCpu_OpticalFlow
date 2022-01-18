@@ -2,17 +2,27 @@ import numpy as np
 import cv2
 from scipy import signal
 ######################################################
+'''
+The function we are minimizing in an alternative way (noted E_A) is described in "Secrets of Optical Flow Estimation and Their Principles" by D.Sun.
+It is depending on the displacement fields (u,v) and the auxiliary arrays (uhat,vhat) and It's also  devided:
+
+'''
 
 
-def Charbonnier(x, a, eps):
-    ''' Evaluate general Charbonnier norm '''
-    y = (x**2+eps**2)**a
-    return y
 ######################################################
 
 
 def quadratique(x):
-    ''' Evaluate general Charbonnier norm '''
+    ''' Evaluate the classical quadratic norm
+
+        Parameters:
+            x: a scalar or an ndarray
+                Points where the function will be evaluated 
+
+        Returns: 
+            y: a scalar or an ndarray
+                The image of x 
+    '''
 
     y = x**2
     return y
@@ -21,7 +31,21 @@ def quadratique(x):
 
 def energie_image(Im1, Im2, u, v):
     '''
-    Compute the energy of the image using the quadratic norm
+    Compute the energy of the first term  using the quadratic norm (Gray constancy assumption).
+
+    Parameters: 
+        Im1 : ndarray 
+            The first image of the sequence 
+        Im2 : ndarray 
+            The second image of the sequence
+        u :  ndarray
+            The horizontal displacement field 
+        v :  ndarray
+            The vertical displacement field 
+
+    Returns: 
+        res : float 
+            Computed energy 
     '''
     N, M = Im1.shape
     y = np.linspace(0, N-1, N)
@@ -40,7 +64,20 @@ def energie_image(Im1, Im2, u, v):
 
 def energie_grad_dep(u, v, lmbda):
     '''
-        Compute the energy of the gradient of the displacements  using the quadratic norm
+        Compute the energy of term related to  the gradient of the displacements  using the quadratic norm.
+
+        Parameters: 
+
+            u :  ndarray
+                The horizontal displacement field 
+            v :  ndarray
+                The vertical displacement field
+            lmbda : float
+                Tikhonov parameter 
+
+    Returns: 
+        res : float 
+            Computed energy 
     '''
     ul = np.empty_like(u)
     uc = np.empty_like(u)
@@ -55,36 +92,80 @@ def energie_grad_dep(u, v, lmbda):
     uc[:, M-1] = u[:, M-1]-u[:, M-2]
     vc[:, :M-1] = v[:, :M-1]-v[:, 1:M]
     vc[:, M-1] = v[:, M-1]-v[:, M-2]
-    # res=lmbda*np.sum(ul**2+uc**2+vl**2+vc**2)
-    res = np.sum(ul**2+uc**2+vl**2+vc**2)
+    res = lmbda*np.sum(ul**2+uc**2+vl**2+vc**2)
+    #res = np.sum(ul**2+uc**2+vl**2+vc**2)
     return res
 
 
 def energie1(Im1, Im2, u, v, lmbda):
     '''
-    Sum of the energy image and gradient od displacements 
+    The energy of the classical methods (Term related to gray value constancy + Image Gradient Term).  
+
+    Parameters: 
+        Im1 : ndarray 
+            The first image of the sequence 
+        Im2 : ndarray 
+            The second image of the sequence
+        u :  ndarray
+            The horizontal displacement field 
+        v :  ndarray
+            The vertical displacement field 
+        lmbda : float
+            Tikhonov parameter
+
+    Returns: 
+        res : float 
+            Computed energy 
     '''
     return (energie_grad_dep(u, v, lmbda)+energie_image(Im1, Im2, u, v))
 ######################################################
 
 
 def energie_champs_aux1(u, uhat, v, vhat, lambda2):
-    ''' Energy rlated the the  first non local term 
+    ''' Energy of the  first non local term (The coupling term)
+
+    Parameters : 
+        u : ndarray 
+            The horizontal displacement field 
+        uhat : ndarray 
+            The horizontal auxiliary flow field
+        v :  ndarray
+            The vertical displacement field
+        vhat :  ndarray
+            The vertical auxiliary flow field
+        lambda2 : float
+            A scalar weight
+    Returns : 
+        res : float 
+            Computed energy  
     '''
-    res=lambda2*np.sum(((u-uhat)**2+(v-vhat)**2))
+    res = lambda2*np.sum(((u-uhat)**2+(v-vhat)**2))
     #res = np.sum(((u-uhat)**2+(v-vhat)**2))
     return res
 ######################################################
 
 
 def energie_champs_aux2(uhat, vhat, lambda3, size_m):
-    ''' Energy rlated the the  second non local term 
+    ''' Energy of the second non local term.
+
+    Parameters: 
+            uhat : ndarray 
+                The horizontal auxiliary flow field
+            vhat :  ndarray
+                The vertical auxiliary flow field
+            lambda3 : float
+                A scalar weight
+            size_m : int 
+                The size of the median filter used.
+    Returns: 
+            res : float 
+                Computed energy    
     '''
     kernel = np.ones((size_m, size_m))
     un = signal.convolve2d(uhat, kernel, mode='same', boundary='symm')
     vn = signal.convolve2d(vhat, kernel, mode='same', boundary='symm')
     Res = np.abs(un-uhat)+np.abs(vhat-vn)
-    res=lambda3*np.sum(Res)
+    res = lambda3*np.sum(Res)
     #res = np.sum(Res)
     return res
 ############################################################
@@ -92,8 +173,29 @@ def energie_champs_aux2(uhat, vhat, lambda3, size_m):
 
 def energie2(u, uhat, v, vhat, lambda2, lambda3, size_m):
     '''
-    Energy rlated the the  first non local term 
+    Energy related the non local term.
+
+        Parameters: 
+            u : ndarray 
+                The horizontal displacement field 
+            uhat : ndarray 
+                The horizontal auxiliary flow field
+            v :  ndarray
+                The vertical displacement field
+            vhat :  ndarray
+                The vertical auxiliary flow field
+            lambda2 : float
+                The first scalar weight
+            lambda3 : float
+                The second scalar weight
+            size_m : int 
+                The size of the median filter used.
+
+        Returns: 
+            res : float 
+                Computed energy   
     '''
+
     return(energie_champs_aux1(u, uhat, v, vhat, lambda2)+energie_champs_aux2(uhat, vhat, lambda3, size_m))
 
 

@@ -79,51 +79,179 @@
   <section id="module-energies">
 <span id="energies-module"></span><h1>energies module<a class="headerlink" href="#module-energies" title="Permalink to this headline"></a></h1>
 <dl class="py function">
-<dt class="sig sig-object py" id="energies.Charbonnier">
-<span class="sig-prename descclassname"><span class="pre">energies.</span></span><span class="sig-name descname"><span class="pre">Charbonnier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#energies.Charbonnier" title="Permalink to this definition"></a></dt>
-<dd><p>Evaluate general Charbonnier norm</p>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="energies.energie1">
 <span class="sig-prename descclassname"><span class="pre">energies.</span></span><span class="sig-name descname"><span class="pre">energie1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Im1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Im2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lmbda</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#energies.energie1" title="Permalink to this definition"></a></dt>
-<dd><p>Sum of the energy image and gradient od displacements</p>
+<dd><p>The energy of the classical methods (Term related to gray value constancy + Image Gradient Term).</p>
+<dl class="simple">
+<dt>Parameters: </dt><dd><dl class="simple">
+<dt>Im1<span class="classifier">ndarray </span></dt><dd><p>The first image of the sequence</p>
+</dd>
+<dt>Im2<span class="classifier">ndarray </span></dt><dd><p>The second image of the sequence</p>
+</dd>
+<dt>u<span class="classifier">ndarray</span></dt><dd><p>The horizontal displacement field</p>
+</dd>
+<dt>v<span class="classifier">ndarray</span></dt><dd><p>The vertical displacement field</p>
+</dd>
+<dt>lmbda<span class="classifier">float</span></dt><dd><p>Tikhonov parameter</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>res<span class="classifier">float </span></dt><dd><p>Computed energy</p>
+</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="energies.energie2">
 <span class="sig-prename descclassname"><span class="pre">energies.</span></span><span class="sig-name descname"><span class="pre">energie2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uhat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vhat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambda2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambda3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_m</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#energies.energie2" title="Permalink to this definition"></a></dt>
-<dd><p>Energy rlated the the  first non local term</p>
+<dd><p>Energy related the non local term.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>Parameters: </dt><dd><dl class="simple">
+<dt>u<span class="classifier">ndarray </span></dt><dd><p>The horizontal displacement field</p>
+</dd>
+<dt>uhat<span class="classifier">ndarray </span></dt><dd><p>The horizontal auxiliary flow field</p>
+</dd>
+<dt>v<span class="classifier">ndarray</span></dt><dd><p>The vertical displacement field</p>
+</dd>
+<dt>vhat<span class="classifier">ndarray</span></dt><dd><p>The vertical auxiliary flow field</p>
+</dd>
+<dt>lambda2<span class="classifier">float</span></dt><dd><p>The first scalar weight</p>
+</dd>
+<dt>lambda3<span class="classifier">float</span></dt><dd><p>The second scalar weight</p>
+</dd>
+<dt>size_m<span class="classifier">int </span></dt><dd><p>The size of the median filter used.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>res<span class="classifier">float </span></dt><dd><p>Computed energy</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="energies.energie_champs_aux1">
 <span class="sig-prename descclassname"><span class="pre">energies.</span></span><span class="sig-name descname"><span class="pre">energie_champs_aux1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uhat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vhat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambda2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#energies.energie_champs_aux1" title="Permalink to this definition"></a></dt>
-<dd><p>Energy rlated the the  first non local term</p>
+<dd><p>Energy of the  first non local term (The coupling term)</p>
+<dl class="simple">
+<dt>Parameters<span class="classifier"></span></dt><dd><dl class="simple">
+<dt>u<span class="classifier">ndarray </span></dt><dd><p>The horizontal displacement field</p>
+</dd>
+<dt>uhat<span class="classifier">ndarray </span></dt><dd><p>The horizontal auxiliary flow field</p>
+</dd>
+<dt>v<span class="classifier">ndarray</span></dt><dd><p>The vertical displacement field</p>
+</dd>
+<dt>vhat<span class="classifier">ndarray</span></dt><dd><p>The vertical auxiliary flow field</p>
+</dd>
+<dt>lambda2<span class="classifier">float</span></dt><dd><p>A scalar weight</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns<span class="classifier"></span></dt><dd><dl class="simple">
+<dt>res<span class="classifier">float </span></dt><dd><p>Computed energy</p>
+</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="energies.energie_champs_aux2">
 <span class="sig-prename descclassname"><span class="pre">energies.</span></span><span class="sig-name descname"><span class="pre">energie_champs_aux2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uhat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vhat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambda3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_m</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#energies.energie_champs_aux2" title="Permalink to this definition"></a></dt>
-<dd><p>Energy rlated the the  second non local term</p>
+<dd><p>Energy of the second non local term.</p>
+<dl class="simple">
+<dt>Parameters: </dt><dd><dl class="simple">
+<dt>uhat<span class="classifier">ndarray </span></dt><dd><p>The horizontal auxiliary flow field</p>
+</dd>
+<dt>vhat<span class="classifier">ndarray</span></dt><dd><p>The vertical auxiliary flow field</p>
+</dd>
+<dt>lambda3<span class="classifier">float</span></dt><dd><p>A scalar weight</p>
+</dd>
+<dt>size_m<span class="classifier">int </span></dt><dd><p>The size of the median filter used.</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>res<span class="classifier">float </span></dt><dd><p>Computed energy</p>
+</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="energies.energie_grad_dep">
 <span class="sig-prename descclassname"><span class="pre">energies.</span></span><span class="sig-name descname"><span class="pre">energie_grad_dep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lmbda</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#energies.energie_grad_dep" title="Permalink to this definition"></a></dt>
-<dd><p>Compute the energy of the gradient of the displacements  using the quadratic norm</p>
+<dd><blockquote>
+<div><p>Compute the energy of term related to  the gradient of the displacements  using the quadratic norm.</p>
+<p>Parameters:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>u<span class="classifier">ndarray</span></dt><dd><p>The horizontal displacement field</p>
+</dd>
+<dt>v<span class="classifier">ndarray</span></dt><dd><p>The vertical displacement field</p>
+</dd>
+<dt>lmbda<span class="classifier">float</span></dt><dd><p>Tikhonov parameter</p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+<dl class="simple">
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>res<span class="classifier">float </span></dt><dd><p>Computed energy</p>
+</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="energies.energie_image">
 <span class="sig-prename descclassname"><span class="pre">energies.</span></span><span class="sig-name descname"><span class="pre">energie_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Im1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Im2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#energies.energie_image" title="Permalink to this definition"></a></dt>
-<dd><p>Compute the energy of the image using the quadratic norm</p>
+<dd><p>Compute the energy of the first term  using the quadratic norm (Gray constancy assumption).</p>
+<dl class="simple">
+<dt>Parameters: </dt><dd><dl class="simple">
+<dt>Im1<span class="classifier">ndarray </span></dt><dd><p>The first image of the sequence</p>
+</dd>
+<dt>Im2<span class="classifier">ndarray </span></dt><dd><p>The second image of the sequence</p>
+</dd>
+<dt>u<span class="classifier">ndarray</span></dt><dd><p>The horizontal displacement field</p>
+</dd>
+<dt>v<span class="classifier">ndarray</span></dt><dd><p>The vertical displacement field</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>res<span class="classifier">float </span></dt><dd><p>Computed energy</p>
+</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="energies.quadratique">
 <span class="sig-prename descclassname"><span class="pre">energies.</span></span><span class="sig-name descname"><span class="pre">quadratique</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#energies.quadratique" title="Permalink to this definition"></a></dt>
-<dd><p>Evaluate general Charbonnier norm</p>
+<dd><p>Evaluate the classical quadratic norm</p>
+<dl class="simple">
+<dt>Parameters:</dt><dd><dl class="simple">
+<dt>x: a scalar or an ndarray</dt><dd><p>Points where the function will be evaluated</p>
+</dd>
+</dl>
+</dd>
+<dt>Returns: </dt><dd><dl class="simple">
+<dt>y: a scalar or an ndarray</dt><dd><p>The image of x</p>
+</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
