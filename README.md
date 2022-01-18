@@ -33,7 +33,7 @@ Two **npy** files will be generated in the end of running:
    - **u_cucim.npy** the horizontal flow field    
    - **v_cucim.npy** the vertical flow field    
 
-To calculate the strain field, you can use the [function gradient of numpy](https://numpy.org/doc/stable/reference/generated/numpy.gradient.html) or of [cupy](https://docs.cupy.dev/en/stable/reference/generated/cupy.gradient.html) if you are using the graphic card.  
+To calculate the strain field, you can use the [function gradient of numpy](https://numpy.org/doc/stable/reference/generated/numpy.gradient.html) or( of [cupy](https://docs.cupy.dev/en/stable/reference/generated/cupy.gradient.html) if you are using the graphic card).  
 
 
 
