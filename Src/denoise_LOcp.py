@@ -5,7 +5,8 @@ from numpy import matlib
 from time import time as t
 import numba as nb
 '''In This file we will implement the Li and Osher median filter
-This Filter will be applied after each warping step in order  
+This Filter will be applied after each warping step.
+
 '''
 #####################################################
 @nb.njit
@@ -40,6 +41,22 @@ def im2col(mtx, mtx2,  block_size):
 
 
 def denoise_LO(un, vn, median_filter_size, lambda23, niters):
+    '''Denoising using the Li & Osher median formula using Cupy and Numba
+    Y. Li and Osher "A New Median Formula with Applications to PDE Based.
+
+
+    Parameters:
+        un : ndarray
+            First array to be filtred 
+        vn : ndarray
+            Second array to be filtred 
+        median_filter_size : int
+            The window size used 
+        lambda23 : float
+            The factor used for Li and Osher formulation
+        niters : int 
+            Number of iterations  
+    '''
     mfsize = median_filter_size
     hfsize = floor(mfsize/2)
     n = (mfsize*mfsize-1)/2

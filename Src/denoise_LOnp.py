@@ -4,7 +4,7 @@ from numpy import matlib
 from time import time as t
 import numba as nb
 '''In This file we will implement the Li and Osher median filter
-This Filter will be applied after each warping step in order  
+This Filter will be applied after each warping step.  
 '''
 #####################################################
 @nb.njit

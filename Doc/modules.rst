@@ -5,7 +5,8 @@ Src
    :maxdepth: 4
 
    compute_flow
-   denoise_LO
+   denoise_LOcp
+   denoise_LOnp
    energies
    flow_operator
    precond

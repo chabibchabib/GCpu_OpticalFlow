@@ -12,14 +12,14 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../Src/'))
+sys.path.insert(0, os.path.abspath('../Src'))
 
 
 # -- Project information -----------------------------------------------------
 
-project = 'CGPU Optical Flow'
-copyright = '2022, A. CHABIB, JF. WITZ, P. GOSSELET'
-author = 'A. CHABIB, JF. WITZ, P. GOSSELET'
+project = 'GCPU Optical Flow'
+copyright = '2022, A. CHABIB, P. Gosselet, V.Magnier'
+author = 'A. CHABIB, P. Gosselet, V.Magnier'
 
 
 # -- General configuration ---------------------------------------------------

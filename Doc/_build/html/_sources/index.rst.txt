@@ -1,9 +1,9 @@
-.. CGPU Optical Flow documentation master file, created by
-   sphinx-quickstart on Mon Jan 17 15:28:37 2022.
+.. GCPU Optical Flow documentation master file, created by
+   sphinx-quickstart on Thu Jan 20 15:41:51 2022.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to CGPU Optical Flow's documentation!
+Welcome to GCPU Optical Flow's documentation!
 =============================================
 
 .. toctree::
@@ -11,6 +11,7 @@ Welcome to CGPU Optical Flow's documentation!
    :caption: Contents:
 
    modules
+
 
 Indices and tables
 ==================
