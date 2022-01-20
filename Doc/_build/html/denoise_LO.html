@@ -76,54 +76,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-denoise_LO">
-<span id="denoise-lo-module"></span><h1>denoise_LO module<a class="headerlink" href="#module-denoise_LO" title="Permalink to this headline"></a></h1>
-<dl class="py function">
-<dt class="sig sig-object py" id="denoise_LO.denoise_LO">
-<span class="sig-prename descclassname"><span class="pre">denoise_LO.</span></span><span class="sig-name descname"><span class="pre">denoise_LO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">un</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">median_filter_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambda23</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">niters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#denoise_LO.denoise_LO" title="Permalink to this definition"></a></dt>
-<dd><p>Denoising using the Li &amp; Osher median formula
-Y. Li and Osher “A New Median Formula with Applications to PDE Based</p>
-<dl class="simple">
-<dt>Parameters:</dt><dd><dl class="simple">
-<dt>un<span class="classifier">ndarray</span></dt><dd><p>First array to be filtred</p>
-</dd>
-<dt>vn<span class="classifier">ndarray</span></dt><dd><p>Second array to be filtred</p>
-</dd>
-<dt>median_filter_size<span class="classifier">int</span></dt><dd><p>The window size used</p>
-</dd>
-<dt>lambda23<span class="classifier">float</span></dt><dd><p>The factor used for Li and Osher formulation</p>
-</dd>
-<dt>niters<span class="classifier">int </span></dt><dd><p>Number of iterations</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="denoise_LO.im2col">
-<span class="sig-prename descclassname"><span class="pre">denoise_LO.</span></span><span class="sig-name descname"><span class="pre">im2col</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mtx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mtx2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">block_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#denoise_LO.im2col" title="Permalink to this definition"></a></dt>
-<dd><p>This function allow us to rearrange the  blocks of two matrices into columns.</p>
-<dl class="simple">
-<dt>Parameters: </dt><dd><dl class="simple">
-<dt>mtx<span class="classifier">ndarray</span></dt><dd><p>The first image</p>
-</dd>
-<dt>-mtx2<span class="classifier">ndarray</span></dt><dd><p>The second array</p>
-</dd>
-<dt>block_size: </dt><dd><p>The size of the blocks</p>
-</dd>
-</dl>
-</dd>
-<dt>Returns:</dt><dd><dl class="simple">
-<dt>result<span class="classifier">ndarray</span></dt><dd><p>Contains the blocks of the first image in  columns</p>
-</dd>
-<dt>result2<span class="classifier">ndarray</span></dt><dd><p>Contains the blocks of the second image in  columns</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
+  <section id="denoise-lo-module">
+<h1>denoise_LO module<a class="headerlink" href="#denoise-lo-module" title="Permalink to this headline"></a></h1>
 </section>
 
 

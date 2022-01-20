@@ -53,7 +53,7 @@ def parameters_func(tab, parameters):
     '''
     # The parameters of type int
     tabint = ["pyram_levels", "ordre_inter",
-              "size_median_filter", "max_linear_iter", "max_iter"]
+              "size_median_filter", "max_linear_iter", "max_iter","LO_filter"]
     # The parameters of type float
     tabfloat = ["factor", "lmbda", "lambda2", "lambda3"]
     if len(tab) > 4:
@@ -69,6 +69,10 @@ def parameters_func(tab, parameters):
 
             if key in tabint:
                 parameters[key] = int(value)
+                if(key == "LO_filter"):
+                    print("Value of LI and Osher",parameters[key],type(parameters[key]))
+                    if (parameters[key]!= 0 and parameters[key]!= 1):
+                        raise ValueError("LO_filter is a boolean variable")
             elif key in tabfloat:
                 parameters[key] = float(value)
             elif(key == "Mask"):
@@ -91,9 +95,11 @@ def parameters_func(tab, parameters):
                 if (parameters[key].min() < 0 or parameters[key].max() > 1):
                     raise ValueError("Mask values must be between 0 and 1 ")
 
-            elif((key not in tabint) and(key not in tabfloat) and key != "Mask" and key != "Path_Mask"):
+
+
+            elif((key not in tabint) and(key not in tabfloat) and key != "Mask" and key != "Path_Mask" ):
                 # No founded Key
-                raise ValueError("Problem with the parameter", key)
+                raise ValueError("No parameter", key ,"has been found")
     if len(tab) < 4:
         # At least we must have 4 parameters: The name of the main file, 2 Images and Their Path
         raise ValueError("Not enough parameters")
@@ -101,7 +107,7 @@ def parameters_func(tab, parameters):
 
 if __name__ == "__main__":
     parameters = {"pyram_levels": 3, "factor": 1/0.5, "ordre_inter": 3, "size_median_filter": 5, "max_linear_iter": 1, "max_iter": 10,
-                  "lmbda": 3.*10**4, "lambda2": 0.001, "lambda3": 1., "Mask": None}
+                  "lmbda": 3.*10**4, "lambda2": 0.001, "lambda3": 1., "Mask": None,"LO_filter": 0}
     # pyram_levels=ri.compute_auto_pyramd_levels(Im1,spacing) #Computing the number of levels dinamically, in  the finest level we get images of 20 to 30 pixels
 
     if (len(sys.argv) < 4):
@@ -117,9 +123,10 @@ if __name__ == "__main__":
     # replace_main(sys.argv,parameters)
     parameters_func(sys.argv, parameters)
     print('PARAMETERS\n', parameters["lmbda"])
+    print('PARAMETER LO\n', parameters["LO_filter"])
     t1 = time.time()
     u, v = compute_flow(Im1, Im2,  parameters["pyram_levels"], parameters["factor"], parameters["ordre_inter"],
-                        parameters["lmbda"], parameters["size_median_filter"], parameters["max_linear_iter"], parameters["max_iter"], parameters["lambda2"], parameters["lambda3"], parameters["Mask"])
+                        parameters["lmbda"], parameters["size_median_filter"], parameters["max_linear_iter"], parameters["max_iter"], parameters["lambda2"], parameters["lambda3"], parameters["Mask"], parameters["LO_filter"])
     t2 = time.time()
 
     # Display time

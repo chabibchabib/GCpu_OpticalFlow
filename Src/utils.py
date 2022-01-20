@@ -18,6 +18,7 @@ try:
     from cupyx.scipy.ndimage import median_filter
     try:
         import cupy as cp
+        from denoise_LOcp import denoise_LO
         print("The GPU version of the soft will be used")
 
     except:
@@ -33,6 +34,7 @@ except:
     from scipy.ndimage.filters import convolve as filter2  # , laplace
     try:
         import numpy as cp
+        from denoise_LOnp import denoise_LO
         warnings.warn("The CPU version of the software  will be used.Cannot import GPU modules.NB:If you already have  a recent NviDia graphic card, try to install CuPy and cuCim (Rapids)")
 
     except:

@@ -261,7 +261,7 @@ def flow_operator(u, v, du, dv, It, Ix, Iy, lmbda, npixels):
 #############################################################
 
 
-def compute_flow_base(Image1, Image2, max_iter, max_linear_iter, u, v, lmbda, size_median_filter, uhat, vhat, lambda2, lambda3, remplacement,  Ix, Iy, Ix2, Iy2, Ixy, xx, yy, sz):
+def compute_flow_base(Image1, Image2, max_iter, max_linear_iter, u, v, lmbda, size_median_filter, uhat, vhat, lambda2, lambda3, remplacement,  Ix, Iy, Ix2, Iy2, Ixy, xx, yy, sz,Li_osher):
     '''COMPUTE_FLOW_BASE  function for computing flow field using u,v displacements as an initialization.
 
     Parameters:
@@ -405,9 +405,12 @@ def compute_flow_base(Image1, Image2, max_iter, max_linear_iter, u, v, lmbda, si
         #[uhat,vhat]=lo.denoise_LO (u,v, size_median_filter, lambda2_tmp/lambda3, itersLO)
 
         # Denoising using a normal median filter (This in an approximation of LO median filter)
+        if (Li_osher==1):
+            [uhat,vhat]=denoise_LO (u,v, size_median_filter, lambda2_tmp/lambda3, 1)
+        if(Li_osher==0):
 
-        uhat = median_filter(u, size=size_median_filter)
-        vhat = median_filter(v, size=size_median_filter)
+            uhat = median_filter(u, size=size_median_filter)
+            vhat = median_filter(v, size=size_median_filter)
 
         if remplacement == True:
             u = uhat

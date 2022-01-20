@@ -105,7 +105,7 @@ def resample_flow_unequal(u, v, sz, ordre_inter):
     return u, v
 
 
-def compute_flow(Im1, Im2,  py_lev, factor, ordre_inter, lmbda, size_median_filter,  max_linear_iter, max_iter, lambda2, lambda3, Mask=None):
+def compute_flow(Im1, Im2,  py_lev, factor, ordre_inter, lmbda, size_median_filter,  max_linear_iter, max_iter, lambda2, lambda3, Mask,Li_osher):
     '''Computes the flow fields
 
         Parameters:
@@ -259,7 +259,7 @@ def compute_flow(Im1, Im2,  py_lev, factor, ordre_inter, lmbda, size_median_filt
         remplacement = True
         # Compute the new flow fields and the auxiliary one
         u, v, uhat, vhat = fo.compute_flow_base(Image1, Image2, max_iter, max_linear_iter, u, v, lmbda, size_median_filter,
-                                                uhat, vhat, lambda2, lambda3, remplacement, Ix, Iy, Ix2, Iy2, Ixy, xx, yy, sz)
+                                                uhat, vhat, lambda2, lambda3, remplacement, Ix, Iy, Ix2, Iy2, Ixy, xx, yy, sz,Li_osher)
 
     u = uhat
     v = vhat

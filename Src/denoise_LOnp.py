@@ -1,16 +1,14 @@
 import numpy as np
 from math import floor, ceil
 from numpy import matlib
-
-'''In This file we will implement the Li and Osher median filter:
-Y. Li and Osher "A New Median Formula with Applications to PDE Based
-
-This Filter will be applied after each warping step.
-
+from time import time as t
+import numba as nb
+'''In This file we will implement the Li and Osher median filter
+This Filter will be applied after each warping step in order  
 '''
-
-
-def im2col(mtx, mtx2, block_size):
+#####################################################
+@nb.njit
+def im2col(mtx, mtx2,  block_size):
     '''
     This function allow us to rearrange the  blocks of two matrices into columns.
 
@@ -37,13 +35,16 @@ def im2col(mtx, mtx2, block_size):
     result = np.empty((block_size[0] * block_size[1], sx * sy))
     result2 = np.empty((block_size[0] * block_size[1], sx * sy))
     # Moved along the line, so the first holding column (i) does not move down along the row (j)
-    for i in range(sy):
-        for j in range(sx):
-            result[:, i * sx + j] = mtx[j:j + block_size[0],
-                                        i:i + block_size[1]].ravel(order='F')
-            result2[:, i * sx + j] = mtx2[j:j + block_size[0],
-                                          i:i + block_size[1]].ravel(order='F')
+    for i in nb.prange(sy):
+        for j in nb.prange(sx):
+            for k in nb.prange(j, j + block_size[0]):
+                for l in nb.prange(i, i + block_size[1]):
+                    row = k-j
+                    col = l-i
+                    result[col*block_size[0]+row, i * sx + j] = mtx[k, l]
+                    result2[col*block_size[0]+row, i * sx + j] = mtx2[k, l]
     return [result, result2]
+######################################################
 
 
 def denoise_LO(un, vn, median_filter_size, lambda23, niters):
@@ -68,8 +69,6 @@ def denoise_LO(un, vn, median_filter_size, lambda23, niters):
 
     tmp = (np.arange(-n, n+1, dtype=np.float32))
     tmp = (matlib.repmat(tmp, un.shape[0]*un.shape[1], 1)/lambda23).T
-    #tmp = (np.tile(tmp, (un.shape[0]*un.shape[1], 1))/lambda23).T
-    # tmp=tmp.T
     tmpu = matlib.repmat(np.reshape(
         un, (1, un.shape[0]*un.shape[1]), 'F'), int(2*n+1), 1)+tmp
     tmpv = matlib.repmat(np.reshape(
@@ -91,18 +90,19 @@ def denoise_LO(un, vn, median_filter_size, lambda23, niters):
 
     return [uo, vo]
 
-
 '''
-u = np.round(10*np.random.rand(5, 5))
-v = np.round(10*np.random.rand(5, 5))
-print('u\n')
-print(u)
-print('v\n')
-print(v)
-
+u = np.round(10*np.random.rand(600, 600))
+v = np.round(10*np.random.rand(600, 600))
 median_filter_size = 3  # 2
-lambda23 = 100
+lambda23 = 10.02
 niters = 1
-u0, v0 = denoise_LO(u, v, median_filter_size, lambda23, niters)
-print('u\n',u0)
-print('v\n',v0)'''
+
+# print(u0)
+t3 = t()
+u0n, v0n = denoise_LO(u, v, median_filter_size, lambda23, niters)
+t4 = t()
+
+
+print('CPU', t4-t3)
+#print('norm u',np.linalg.norm(u0.get()-u0n),'norm v',np.linalg.norm(v0.get()-v0n))
+'''
