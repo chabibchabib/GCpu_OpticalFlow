@@ -1,5 +1,6 @@
-energies module
+Energies module
 ===============
+For computing the different energies described in the paper of `D.Sun <https://cs.brown.edu/people/dqsun/pubs/cvpr_2010_flow.pdf>`_.
 
 .. automodule:: energies
    :members:

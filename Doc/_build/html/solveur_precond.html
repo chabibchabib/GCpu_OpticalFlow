@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>solveur_precond module &mdash; GCPU Optical Flow  documentation</title>
+  <title>Solveur precond &mdash; GCPU Optical Flow  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -15,11 +15,12 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="utils module" href="utils.html" />
-    <link rel="prev" title="precond module" href="precond.html" /> 
+    <link rel="next" title="Utils" href="utils.html" />
+    <link rel="prev" title="Precond" href="precond.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -37,17 +38,25 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="README.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Structure:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Structurs.html">Structure</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Modules:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Src</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="compute_flow.html">compute_flow module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="denoise_LOcp.html">denoise_LOcp module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="denoise_LOnp.html">denoise_LOnp module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="energies.html">energies module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="flow_operator.html">flow_operator module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="precond.html">precond module</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">solveur_precond module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="utils.html">utils module</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Sources</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="compute_flow.html">Compute flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="denoise_LOnp.html">denoise LOnp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="denoise_LOcp.html">denoise LOcp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="energies.html">Energies module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_operator.html">Flow operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="precond.html">Precond</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Solveur precond</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">Utils</a></li>
 </ul>
 </li>
 </ul>
@@ -66,8 +75,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="modules.html">Src</a> &raquo;</li>
-      <li>solveur_precond module</li>
+          <li><a href="modules.html">Sources</a> &raquo;</li>
+      <li>Solveur precond</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/solveur_precond.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -77,21 +86,37 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-solveur_precond">
-<span id="solveur-precond-module"></span><h1>solveur_precond module<a class="headerlink" href="#module-solveur_precond" title="Permalink to this headline"></a></h1>
-<dl class="py function">
+  <section id="solveur-precond">
+<h1>Solveur precond<a class="headerlink" href="#solveur-precond" title="Permalink to this headline"></a></h1>
+<p>It’s a matrix-free implementation of Minres solver  used in scipy.sparse and the function Minres of Matlab. This function is adapted to solve the following problem.                                             P^-1*A*x=P^-1*b.
+Where A is the optical flow matrix, b the right hand term and P is the chosen preconditioner already defined in Precond file.
+If we are working with the  N x M images, then the problem solved have 2xNxM as size.
+The file contains also a function that computes the  matrix-product of matrix of the problem (A) and  a  given vector.</p>
+<span class="target" id="module-solveur_precond"></span><dl class="py function">
 <dt class="sig sig-object py" id="solveur_precond.minres">
 <span class="sig-prename descclassname"><span class="pre">solveur_precond.</span></span><span class="sig-name descname"><span class="pre">minres</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ix2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Iy2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ixy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lmbda</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lmbda2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxiter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#solveur_precond.minres" title="Permalink to this definition"></a></dt>
 <dd><p>This is an implementation of minres code used in scipy.sparse and the funcion minres of Matlab 
-But it’s adapted to solve the pb of the form P^-1*A*x=P^-1*b ; where A is the optical flow matrix, b the right hand term
+But it’s adapted to solve the pb of the form:</p>
+<div class="math notranslate nohighlight">
+\[P^{-1}A x=P^{-1}b\]</div>
+<p>where A is the optical flow matrix, b the right hand term
 And P is a chosen Preconditionner.</p>
-<p>A has the following form: A=[Ix^2+lmbda2+2*laplacian Matrix Ixy; Ixy Iy^2+lmbda2+2*laplacian Matrix ].</p>
+<p>A has the following form:
+.. math:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>egin{equation*}
+    A=
+    egin{pmatrix}
+    I_x^2+lmbda2+2*laplacian Matrix Ixy; I_x.*I_y I_y^2+lmbda2+2*laplacian Matrix 
+    \end{pmatrix}
+\end{equation*}
+</pre></div>
+</div>
 <p>The right hand term must be a vecor containing 2*M*N element where (N,M) is the dimension of the images used.
 A is a 2*M*N square symmetric matrix.</p>
 <p>In this implementation we will not construct the matrices A and P, we will only use the 
 functions my_dot (and the function Px respectively) to show the algorithm how to cumpute the Matrix-vector product of Ax (and 
 P^-1*x  respectively).</p>
-<p>For more information about the solver: <a class="reference external" href="https://web.stanford.edu/group/SOL/software/minres/">https://web.stanford.edu/group/SOL/software/minres/</a></p>
+<p>For more information about the solver: <a class="reference external" href="https://web.stanford.edu/group/SOL/software/minres/">MINRES</a></p>
 <blockquote>
 <div><p>Parameters:</p>
 <blockquote>
@@ -172,14 +197,14 @@ A and a vector U</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="precond.html" class="btn btn-neutral float-left" title="precond module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="utils.html" class="btn btn-neutral float-right" title="utils module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="precond.html" class="btn btn-neutral float-left" title="Precond" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="utils.html" class="btn btn-neutral float-right" title="Utils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, A. CHABIB, P. Gosselet, V.Magnier.</p>
+    <p>&#169; Copyright 2022, A. CHABIB, JF. WITZ, P. GOSSELET, V. MAGNIER.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

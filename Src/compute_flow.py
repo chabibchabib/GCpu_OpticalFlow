@@ -125,7 +125,7 @@ def compute_flow(Im1, Im2,  py_lev, factor, ordre_inter, lmbda, size_median_filt
         
                 That parameter will be used for skimage.resize function.
 
-                For more details: https://scikit-image.org/docs/stable/api/skimage.transform.html#skimage.transform.resize
+                For more details: `skimage.resize <https://scikit-image.org/docs/stable/api/skimage.transform.html#skimage.transform.resize>`_
 
             lmbda: float 
                 Tikhonov Parameter

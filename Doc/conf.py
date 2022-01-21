@@ -12,14 +12,14 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../Src'))
+sys.path.insert(0, os.path.abspath('../Src/'))
 
 
 # -- Project information -----------------------------------------------------
 
 project = 'GCPU Optical Flow'
-copyright = '2022, A. CHABIB, P. Gosselet, V.Magnier'
-author = 'A. CHABIB, P. Gosselet, V.Magnier'
+copyright = '2022, A. CHABIB, JF. WITZ, P. GOSSELET, V. MAGNIER'
+author = 'A. CHABIB, JF. WITZ, P. GOSSELET, V. MAGNIER'
 
 
 # -- General configuration ---------------------------------------------------
@@ -27,7 +27,7 @@ author = 'A. CHABIB, P. Gosselet, V.Magnier'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.autodoc'
+extensions = ['sphinx.ext.autodoc','sphinx_rtd_theme'
 ]
 
 # Add any paths that contain templates here, relative to this directory.

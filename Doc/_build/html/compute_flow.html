@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>compute_flow module &mdash; GCPU Optical Flow  documentation</title>
+  <title>Compute flow &mdash; GCPU Optical Flow  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -18,8 +18,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="denoise_LOcp module" href="denoise_LOcp.html" />
-    <link rel="prev" title="Src" href="modules.html" /> 
+    <link rel="next" title="denoise LOnp" href="denoise_LOnp.html" />
+    <link rel="prev" title="Sources" href="modules.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -37,17 +37,21 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="README.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Src</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">compute_flow module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="denoise_LOcp.html">denoise_LOcp module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="denoise_LOnp.html">denoise_LOnp module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="energies.html">energies module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="flow_operator.html">flow_operator module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="precond.html">precond module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="solveur_precond.html">solveur_precond module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="utils.html">utils module</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Sources</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Compute flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="denoise_LOnp.html">denoise LOnp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="denoise_LOcp.html">denoise LOcp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="energies.html">Energies module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_operator.html">Flow operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="precond.html">Precond</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solveur_precond.html">Solveur precond</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">Utils</a></li>
 </ul>
 </li>
 </ul>
@@ -66,8 +70,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="modules.html">Src</a> &raquo;</li>
-      <li>compute_flow module</li>
+          <li><a href="modules.html">Sources</a> &raquo;</li>
+      <li>Compute flow</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/compute_flow.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -77,9 +81,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-compute_flow">
-<span id="compute-flow-module"></span><h1>compute_flow module<a class="headerlink" href="#module-compute_flow" title="Permalink to this headline"></a></h1>
-<dl class="py function">
+  <section id="compute-flow">
+<h1>Compute flow<a class="headerlink" href="#compute-flow" title="Permalink to this headline"></a></h1>
+<p>Computes the optical flow fields using a pyramidal approach and the base function already defined in <strong>Flow operator</strong> module</p>
+<span class="target" id="module-compute_flow"></span><dl class="py function">
 <dt class="sig sig-object py" id="compute_flow.compute_flow">
 <span class="sig-prename descclassname"><span class="pre">compute_flow.</span></span><span class="sig-name descname"><span class="pre">compute_flow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Im1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Im2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">py_lev</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ordre_inter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lmbda</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_median_filter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_linear_iter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambda2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambda3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Li_osher</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#compute_flow.compute_flow" title="Permalink to this definition"></a></dt>
 <dd><p>Computes the flow fields</p>
@@ -94,7 +99,7 @@
 </dd>
 <dt>ordre_inter: int </dt><dd><p>The desired order of interpolation must be between 0 and 5.</p>
 <p>That parameter will be used for skimage.resize function.</p>
-<p>For more details: <a class="reference external" href="https://scikit-image.org/docs/stable/api/skimage.transform.html#skimage.transform.resize">https://scikit-image.org/docs/stable/api/skimage.transform.html#skimage.transform.resize</a></p>
+<p>For more details: <a class="reference external" href="https://scikit-image.org/docs/stable/api/skimage.transform.html#skimage.transform.resize">skimage.resize</a></p>
 </dd>
 <dt>lmbda: float </dt><dd><p>Tikhonov Parameter</p>
 </dd>
@@ -192,14 +197,14 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="modules.html" class="btn btn-neutral float-left" title="Src" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="denoise_LOcp.html" class="btn btn-neutral float-right" title="denoise_LOcp module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="modules.html" class="btn btn-neutral float-left" title="Sources" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="denoise_LOnp.html" class="btn btn-neutral float-right" title="denoise LOnp" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, A. CHABIB, P. Gosselet, V.Magnier.</p>
+    <p>&#169; Copyright 2022, A. CHABIB, JF. WITZ, P. GOSSELET, V. MAGNIER.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

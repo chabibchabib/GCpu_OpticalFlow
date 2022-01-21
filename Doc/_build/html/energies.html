@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>energies module &mdash; GCPU Optical Flow  documentation</title>
+  <title>Energies module &mdash; GCPU Optical Flow  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -18,8 +18,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="flow_operator module" href="flow_operator.html" />
-    <link rel="prev" title="denoise_LOnp module" href="denoise_LOnp.html" /> 
+    <link rel="next" title="Flow operator" href="flow_operator.html" />
+    <link rel="prev" title="denoise LOcp" href="denoise_LOcp.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -37,17 +37,21 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Introduction:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="README.html">Introduction</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Src</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="compute_flow.html">compute_flow module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="denoise_LOcp.html">denoise_LOcp module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="denoise_LOnp.html">denoise_LOnp module</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">energies module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="flow_operator.html">flow_operator module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="precond.html">precond module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="solveur_precond.html">solveur_precond module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="utils.html">utils module</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Sources</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="compute_flow.html">Compute flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="denoise_LOnp.html">denoise LOnp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="denoise_LOcp.html">denoise LOcp</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Energies module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="flow_operator.html">Flow operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="precond.html">Precond</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solveur_precond.html">Solveur precond</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">Utils</a></li>
 </ul>
 </li>
 </ul>
@@ -66,8 +70,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="modules.html">Src</a> &raquo;</li>
-      <li>energies module</li>
+          <li><a href="modules.html">Sources</a> &raquo;</li>
+      <li>Energies module</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/energies.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -77,9 +81,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-energies">
-<span id="energies-module"></span><h1>energies module<a class="headerlink" href="#module-energies" title="Permalink to this headline"></a></h1>
-<dl class="py function">
+  <section id="energies-module">
+<h1>Energies module<a class="headerlink" href="#energies-module" title="Permalink to this headline"></a></h1>
+<p>For computing the different energies described in the paper of <a class="reference external" href="https://cs.brown.edu/people/dqsun/pubs/cvpr_2010_flow.pdf">D.Sun</a>.</p>
+<span class="target" id="module-energies"></span><dl class="py function">
 <dt class="sig sig-object py" id="energies.energie1">
 <span class="sig-prename descclassname"><span class="pre">energies.</span></span><span class="sig-name descname"><span class="pre">energie1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Im1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Im2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lmbda</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#energies.energie1" title="Permalink to this definition"></a></dt>
 <dd><p>The energy of the classical methods (Term related to gray value constancy + Image Gradient Term).</p>
@@ -261,14 +266,14 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="denoise_LOnp.html" class="btn btn-neutral float-left" title="denoise_LOnp module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="flow_operator.html" class="btn btn-neutral float-right" title="flow_operator module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="denoise_LOcp.html" class="btn btn-neutral float-left" title="denoise LOcp" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="flow_operator.html" class="btn btn-neutral float-right" title="Flow operator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, A. CHABIB, P. Gosselet, V.Magnier.</p>
+    <p>&#169; Copyright 2022, A. CHABIB, JF. WITZ, P. GOSSELET, V. MAGNIER.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

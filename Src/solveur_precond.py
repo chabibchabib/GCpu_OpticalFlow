@@ -67,11 +67,22 @@ def my_dot2(Ix2, Iy2, Ixy, lmbda, lmbda2, U, N, M):
 def minres(Ix2, Iy2, Ixy, lmbda, lmbda2, b, maxiter, rtol, N, M):
     '''
     This is an implementation of minres code used in scipy.sparse and the funcion minres of Matlab 
-    But it's adapted to solve the pb of the form P^-1*A*x=P^-1*b ; where A is the optical flow matrix, b the right hand term
+    But it's adapted to solve the pb of the form:
+
+    .. math::
+        P^{-1}A x=P^{-1}b
+
+    where A is the optical flow matrix, b the right hand term
     And P is a chosen Preconditionner.
 
-    A has the following form: A=[Ix^2+lmbda2+2*laplacian Matrix Ixy; Ixy Iy^2+lmbda2+2*laplacian Matrix ].
-
+    A has the following form:
+    .. math::
+        \begin{equation*}
+            A=
+            \begin{pmatrix}
+            I_x^2+lmbda2+2*laplacian Matrix Ixy; I_x.*I_y I_y^2+lmbda2+2*laplacian Matrix 
+            \end{pmatrix}
+        \end{equation*}
     The right hand term must be a vecor containing 2*M*N element where (N,M) is the dimension of the images used.
     A is a 2*M*N square symmetric matrix.
 
@@ -79,7 +90,7 @@ def minres(Ix2, Iy2, Ixy, lmbda, lmbda2, b, maxiter, rtol, N, M):
     functions my_dot (and the function Px respectively) to show the algorithm how to cumpute the Matrix-vector product of Ax (and 
     P^-1*x  respectively).
     
-    For more information about the solver: https://web.stanford.edu/group/SOL/software/minres/
+    For more information about the solver: `MINRES <https://web.stanford.edu/group/SOL/software/minres/>`_
 
         Parameters:
 

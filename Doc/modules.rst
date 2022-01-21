@@ -1,12 +1,12 @@
-Src
-===
+Sources
+=======
 
 .. toctree::
    :maxdepth: 4
 
    compute_flow
-   denoise_LOcp
    denoise_LOnp
+   denoise_LOcp
    energies
    flow_operator
    precond
