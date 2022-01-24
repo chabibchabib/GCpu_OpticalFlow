@@ -16,30 +16,33 @@ def my_dot2(Ix2, Iy2, Ixy, lmbda, lmbda2, U, N, M):
             Ix2 : ndarray
                 Ix^2 square of the spatial derivative with respect to x (Ix)
 
-            Iy2: ndarray 
+            Iy2 : ndarray 
                 Iy^2 square of the spatial derivatives with respect to y (Iy)
 
-            Ixy: ndarray
+            Ixy : ndarray
                 The product of Ix and Iy 
 
-            lmbda: float
+            lmbda : float
                 The parameter of regularization
 
-            lmbda2: float 
+            lmbda2 : float 
                 The term related to the auxiliary fields uhat and vhat
 
-            U: ndarray
+            U : ndarray
                 An 2*M*N vector
-            N: int
-                Number of the image rows. 
-            -M: int
+
+            N : int
+                Number of the image rows
+
+            M : int
                 Number of the image cols
 
         Returns:
 
-            res: ndarray
-                The product of A*U   
-             '''
+            res : ndarray
+                The product of A*U
+               
+    '''
     npix = N*M  # Number of pixels
 
     # Reshape the vector U to get u and v
@@ -57,12 +60,12 @@ def my_dot2(Ix2, Iy2, Ixy, lmbda, lmbda2, U, N, M):
 
     # Allocation
     res = cp.empty((2*npix, 1), dtype=np.float32)
+
     # Storage
     res[:npix] = u1
     res[npix:2*npix] = v1
-    return res
-###############################################################################
 
+    return res
 
 def minres(Ix2, Iy2, Ixy, lmbda, lmbda2, b, maxiter, rtol, N, M):
     '''
@@ -76,19 +79,21 @@ def minres(Ix2, Iy2, Ixy, lmbda, lmbda2, b, maxiter, rtol, N, M):
     And P is a chosen Preconditionner.
 
     A has the following form:
+
     .. math::
-        \begin{equation*}
-            A=
-            \begin{pmatrix}
-            I_x^2+lmbda2+2*laplacian Matrix Ixy; I_x.*I_y I_y^2+lmbda2+2*laplacian Matrix 
-            \end{pmatrix}
-        \end{equation*}
-    The right hand term must be a vecor containing 2*M*N element where (N,M) is the dimension of the images used.
-    A is a 2*M*N square symmetric matrix.
+
+        A=
+        \\begin{pmatrix}
+            I_x^2+\\lambda _2 +2\\bigtriangleup & I_x \\times I_y \n
+            I_x\\times I_y & I_y^2+\\lambda _2+2\\bigtriangleup  
+        \\end{pmatrix}
+    
+    The right hand term b must be a vecor containing :math:`2\\times M \\times N` element where (N,M) is the dimension of the images used.
+    A is a :math:`2\\times M \\times N` square symmetric matrix.
 
     In this implementation we will not construct the matrices A and P, we will only use the 
-    functions my_dot (and the function Px respectively) to show the algorithm how to cumpute the Matrix-vector product of Ax (and 
-    P^-1*x  respectively).
+    functions my_dot (and the function :math:`Px` respectively) to show the algorithm how to cumpute the Matrix-vector product of :math:`Ax` (and 
+    :math:`P^{-1}x`  respectively).
     
     For more information about the solver: `MINRES <https://web.stanford.edu/group/SOL/software/minres/>`_
 

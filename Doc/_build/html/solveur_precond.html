@@ -101,21 +101,17 @@ But it’s adapted to solve the pb of the form:</p>
 \[P^{-1}A x=P^{-1}b\]</div>
 <p>where A is the optical flow matrix, b the right hand term
 And P is a chosen Preconditionner.</p>
-<p>A has the following form:
-.. math:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>egin{equation*}
-    A=
-    egin{pmatrix}
-    I_x^2+lmbda2+2*laplacian Matrix Ixy; I_x.*I_y I_y^2+lmbda2+2*laplacian Matrix 
-    \end{pmatrix}
-\end{equation*}
-</pre></div>
-</div>
-<p>The right hand term must be a vecor containing 2*M*N element where (N,M) is the dimension of the images used.
-A is a 2*M*N square symmetric matrix.</p>
+<p>A has the following form:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}A=
+\begin{pmatrix}
+    I_x^2+\lambda _2 +2\bigtriangleup &amp; I_x \times I_y \\    I_x\times I_y &amp; I_y^2+\lambda _2+2\bigtriangleup  
+\end{pmatrix}\end{aligned}\end{align} \]</div>
+<p>The right hand term must be a vecor containing <span class="math notranslate nohighlight">\(2\times M \times N\)</span> element where (N,M) is the dimension of the images used.
+A is a <span class="math notranslate nohighlight">\(2\times M \times N\)</span> square symmetric matrix.</p>
 <p>In this implementation we will not construct the matrices A and P, we will only use the 
-functions my_dot (and the function Px respectively) to show the algorithm how to cumpute the Matrix-vector product of Ax (and 
-P^-1*x  respectively).</p>
+functions my_dot (and the function <span class="math notranslate nohighlight">\(Px\)</span> respectively) to show the algorithm how to cumpute the Matrix-vector product of <span class="math notranslate nohighlight">\(Ax\)</span> (and 
+<span class="math notranslate nohighlight">\(P^{-1}x\)</span>  respectively).</p>
 <p>For more information about the solver: <a class="reference external" href="https://web.stanford.edu/group/SOL/software/minres/">MINRES</a></p>
 <blockquote>
 <div><p>Parameters:</p>
@@ -165,26 +161,26 @@ A and a vector U</p>
 <div><dl class="simple">
 <dt>Ix2<span class="classifier">ndarray</span></dt><dd><p>Ix^2 square of the spatial derivative with respect to x (Ix)</p>
 </dd>
-<dt>Iy2: ndarray </dt><dd><p>Iy^2 square of the spatial derivatives with respect to y (Iy)</p>
+<dt>Iy2<span class="classifier">ndarray </span></dt><dd><p>Iy^2 square of the spatial derivatives with respect to y (Iy)</p>
 </dd>
-<dt>Ixy: ndarray</dt><dd><p>The product of Ix and Iy</p>
+<dt>Ixy<span class="classifier">ndarray</span></dt><dd><p>The product of Ix and Iy</p>
 </dd>
-<dt>lmbda: float</dt><dd><p>The parameter of regularization</p>
+<dt>lmbda<span class="classifier">float</span></dt><dd><p>The parameter of regularization</p>
 </dd>
-<dt>lmbda2: float </dt><dd><p>The term related to the auxiliary fields uhat and vhat</p>
+<dt>lmbda2<span class="classifier">float </span></dt><dd><p>The term related to the auxiliary fields uhat and vhat</p>
 </dd>
-<dt>U: ndarray</dt><dd><p>An 2*M*N vector</p>
+<dt>U<span class="classifier">ndarray</span></dt><dd><p>An 2*M*N vector</p>
 </dd>
-<dt>N: int</dt><dd><p>Number of the image rows.</p>
+<dt>N<span class="classifier">int</span></dt><dd><p>Number of the image rows</p>
 </dd>
-<dt>-M: int</dt><dd><p>Number of the image cols</p>
+<dt>M<span class="classifier">int</span></dt><dd><p>Number of the image cols</p>
 </dd>
 </dl>
 </div></blockquote>
 <p>Returns:</p>
 <blockquote>
 <div><dl class="simple">
-<dt>res: ndarray</dt><dd><p>The product of A*U</p>
+<dt>res<span class="classifier">ndarray</span></dt><dd><p>The product of A*U</p>
 </dd>
 </dl>
 </div></blockquote>
