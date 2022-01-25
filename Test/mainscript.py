@@ -122,8 +122,8 @@ if __name__ == "__main__":
 
     # replace_main(sys.argv,parameters)
     parameters_func(sys.argv, parameters)
-    print('PARAMETERS\n', parameters["lmbda"])
-    print('PARAMETER LO\n', parameters["LO_filter"])
+    
+    # Compute flow field
     t1 = time.time()
     u, v = compute_flow(Im1, Im2,  parameters["pyram_levels"], parameters["factor"], parameters["ordre_inter"],
                         parameters["lmbda"], parameters["size_median_filter"], parameters["max_linear_iter"], parameters["max_iter"], parameters["lambda2"], parameters["lambda3"], parameters["Mask"], parameters["LO_filter"])

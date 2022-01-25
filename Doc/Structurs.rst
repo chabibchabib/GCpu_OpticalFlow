@@ -1,21 +1,22 @@
-=========
+
 A. Src
-=========
+======
+
 Is a folder containaing the main python software sources. 
 
-Utils:
+:ref:`Utils`:
 
   ``Utils`` imports the required functions and modules to run the code. The GPU version of the software will be privileged.
 
   If Utils find some missing functions or modules the CPU version will be launched. 
 
-Precond:
+:ref:`Precond`:
 
   Is used to compute the matrix-vector product  of the inverse of the chosen preconditioner and a given vector. 
 
   This function will be used to create a matrix-free solver.
 
-Solveur_precon :   
+:ref:`Solveur precond`:   
   It's a matrix-free implementation of Minres solver used in scipy.sparse and the function Minres of Matlab. This function is adapted to solve the following problem 
   
   .. math::
@@ -28,18 +29,18 @@ Solveur_precon :
 
   The file contains also a function that computes the  matrix-product of matrix of the problem and  a  given vector.
 
-Flow_operator:
+:ref:`Flow operator`:
   The role  of  ``flow_operator`` module is the interpolation of the images using the current computed flow fields, the construction of the right hand term of the linear system and the definition of  the base function for computing flow field that will be used at each level of the pyramid.
 
-Compute_flow:   
+:ref:`Compute flow`:   
   Computes the optical flow fields using a pyramidal approach and the base function already defined in ``flow_operator``.
 
-Energies:
+:ref:`Energies`:
     For computing the different energies described in the paper of D.Sun[.
-Denoise_LO:
+:ref:`Denoise LOnp`:
     Li and Osher :footcite:p:`\LiOsher` median filter implementation.
 
-=======
+
 B. Test
 =======
 To test the method we created a script able to read and modify the parameters of the algorithm using the sys.argv arguments.  
@@ -73,7 +74,8 @@ To change the value of a desired parameter, you must add it after the executable
    * - The order of interpolation [Must be between 0 and 5] 
      - ordre_inter
      - 3
-   * - The size of the window used for Li and Osher or the simple median filter 
+   * - The size of the window used for Li and Osher
+          or the simple median filter 
      - size_median_filter
      - 5
    * - Number of warping steps
@@ -102,9 +104,10 @@ To change the value of a desired parameter, you must add it after the executable
 
 .. code-block:: shell-session
 
- ./mainscript /Give/The/Path/Folder  Im1.extension Im2.extension  keyword=new_value 	Mask=Mask.extension Path_Mask=/Path/Folder/OfMask 
+ ./mainscript /Give/The/Path/Folder  Im1.extension Im2.extension  keyword=new_value 
+    Mask=Mask.extension Path_Mask=/Path/Folder/OfMask 
 
-=========
+
 C. Images
 =========
 In order to test the software, three image sequences and some masks with different shapes were given in this folder.

@@ -27,7 +27,8 @@ author = 'A. CHABIB, JF. WITZ, P. GOSSELET, V. MAGNIER'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.autodoc','sphinx_rtd_theme','sphinxcontrib.bibtex'
+extensions = ['sphinx.ext.autodoc','sphinx_rtd_theme','sphinxcontrib.bibtex',
+'sphinx.ext.autosectionlabel'
 ]
 
 numfig = True

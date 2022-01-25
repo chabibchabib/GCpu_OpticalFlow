@@ -1,7 +1,7 @@
 This code is an accelerated open-source software for 2D optical flow estimation and mechanical strain.   
 The code is based on `D. Sun <https://cs.brown.edu/people/dqsun/pubs/cvpr_2010_flow.pdf>`_ :footcite:p:`DSun`  method with some improvements.
 
-============
+
 Requirements
 ============
 
@@ -33,7 +33,7 @@ Beside the previous packages some additional ones with some and APIs will be nee
    The GPU version was tested using `Cupy <https://cupy.dev/>`_ 9.2.0 and `cuCIM API <https://docs.rapids.ai/api/cucim/stable/api.html>`_ 21.10.01  
 
 
-=======
+
 Method
 =======
 
@@ -118,3 +118,4 @@ C. Summary of the method
    - Compute the steps :math:`du,dv` by solving a linear system 
    - Update u and v 
    - Compute :math:`\hat{u},\hat{v}` by  Li and Osher or a simple median filter at each iteration
+

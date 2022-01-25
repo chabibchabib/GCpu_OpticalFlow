@@ -41,7 +41,7 @@
               <p class="caption" role="heading"><span class="caption-text">Introduction:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="README.html">Requirements</a></li>
-<li class="toctree-l1"><a class="reference internal" href="README.html#method">METHOD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html#method">Method</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Structure:</span></p>
 <ul class="current">
@@ -52,9 +52,9 @@
 <p class="caption" role="heading"><span class="caption-text">Modules:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="compute_flow.html">Compute flow</a></li>
-<li class="toctree-l1"><a class="reference internal" href="denoise_LOnp.html">denoise LOnp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="denoise_LOnp.html">Denoise LOnp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="denoise_LOcp.html">denoise LOcp</a></li>
-<li class="toctree-l1"><a class="reference internal" href="energies.html">Energies module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="energies.html">Energies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="flow_operator.html">Flow operator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="precond.html">Precond</a></li>
 <li class="toctree-l1"><a class="reference internal" href="solveur_precond.html">Solveur precond</a></li>
@@ -63,6 +63,10 @@
 <p class="caption" role="heading"><span class="caption-text">Bibliography:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="References.html">Bibliography</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Tutorial:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="Tuto.html">Tutorial</a></li>
 </ul>
 
         </div>
@@ -92,31 +96,31 @@
   <section id="a-src">
 <h1>A. Src<a class="headerlink" href="#a-src" title="Permalink to this headline"></a></h1>
 <p>Is a folder containaing the main python software sources.</p>
-<p>Utils:</p>
+<p><a class="reference internal" href="utils.html#utils"><span class="std std-ref">Utils</span></a>:</p>
 <blockquote>
 <div><p><code class="docutils literal notranslate"><span class="pre">Utils</span></code> imports the required functions and modules to run the code. The GPU version of the software will be privileged.</p>
 <p>If Utils find some missing functions or modules the CPU version will be launched.</p>
 </div></blockquote>
-<p>Precond:</p>
+<p><a class="reference internal" href="precond.html#precond"><span class="std std-ref">Precond</span></a>:</p>
 <blockquote>
 <div><p>Is used to compute the matrix-vector product  of the inverse of the chosen preconditioner and a given vector.</p>
 <p>This function will be used to create a matrix-free solver.</p>
 </div></blockquote>
 <dl>
-<dt>Solveur_precon :</dt><dd><p>It’s a matrix-free implementation of Minres solver used in scipy.sparse and the function Minres of Matlab. This function is adapted to solve the following problem</p>
+<dt><a class="reference internal" href="solveur_precond.html#solveur-precond"><span class="std std-ref">Solveur precond</span></a>:</dt><dd><p>It’s a matrix-free implementation of Minres solver used in scipy.sparse and the function Minres of Matlab. This function is adapted to solve the following problem</p>
 <div class="math notranslate nohighlight">
 \[P^{-1}Ax=P^{-1}b\]</div>
 <p>Where <span class="math notranslate nohighlight">\(A\)</span> is the optical flow matrix, <span class="math notranslate nohighlight">\(b\)</span> the right hand term and <span class="math notranslate nohighlight">\(P\)</span> is the chosen preconditioner already defined in Precond file.</p>
 <p>If we are handling <span class="math notranslate nohighlight">\(N \times M\)</span> images, then the problem has <span class="math notranslate nohighlight">\(2\times N \times M\)</span> as size.</p>
 <p>The file contains also a function that computes the  matrix-product of matrix of the problem and  a  given vector.</p>
 </dd>
-<dt>Flow_operator:</dt><dd><p>The role  of  <code class="docutils literal notranslate"><span class="pre">flow_operator</span></code> module is the interpolation of the images using the current computed flow fields, the construction of the right hand term of the linear system and the definition of  the base function for computing flow field that will be used at each level of the pyramid.</p>
+<dt><a class="reference internal" href="flow_operator.html#flow-operator"><span class="std std-ref">Flow operator</span></a>:</dt><dd><p>The role  of  <code class="docutils literal notranslate"><span class="pre">flow_operator</span></code> module is the interpolation of the images using the current computed flow fields, the construction of the right hand term of the linear system and the definition of  the base function for computing flow field that will be used at each level of the pyramid.</p>
 </dd>
-<dt>Compute_flow:</dt><dd><p>Computes the optical flow fields using a pyramidal approach and the base function already defined in <code class="docutils literal notranslate"><span class="pre">flow_operator</span></code>.</p>
+<dt><a class="reference internal" href="compute_flow.html#compute-flow"><span class="std std-ref">Compute flow</span></a>:</dt><dd><p>Computes the optical flow fields using a pyramidal approach and the base function already defined in <code class="docutils literal notranslate"><span class="pre">flow_operator</span></code>.</p>
 </dd>
-<dt>Energies:</dt><dd><p>For computing the different energies described in the paper of D.Sun[.</p>
+<dt><a class="reference internal" href="energies.html#energies"><span class="std std-ref">Energies</span></a>:</dt><dd><p>For computing the different energies described in the paper of D.Sun[.</p>
 </dd>
-<dt>Denoise_LO:</dt><dd><p>Li and Osher <a class="footnote-reference brackets" href="#footcite-liosher" id="id1">1</a> median filter implementation.</p>
+<dt><a class="reference internal" href="denoise_LOnp.html#denoise-lonp"><span class="std std-ref">Denoise LOnp</span></a>:</dt><dd><p>Li and Osher <a class="footnote-reference brackets" href="#footcite-liosher" id="id1">1</a> median filter implementation.</p>
 </dd>
 </dl>
 </section>
@@ -160,7 +164,11 @@ To run the script you can use <code class="docutils literal notranslate"><span c
 <td><p>ordre_inter</p></td>
 <td><p>3</p></td>
 </tr>
-<tr class="row-odd"><td><p>The size of the window used for Li and Osher or the simple median filter</p></td>
+<tr class="row-odd"><td><dl class="simple">
+<dt>The size of the window used for Li and Osher</dt><dd><p>or the simple median filter</p>
+</dd>
+</dl>
+</td>
 <td><p>size_median_filter</p></td>
 <td><p>5</p></td>
 </tr>
@@ -195,7 +203,8 @@ To run the script you can use <code class="docutils literal notranslate"><span c
 </tbody>
 </table>
 <p><strong>Syntax :</strong></p>
-<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="go">./mainscript /Give/The/Path/Folder  Im1.extension Im2.extension  keyword=new_value     Mask=Mask.extension Path_Mask=/Path/Folder/OfMask</span>
+<div class="highlight-shell-session notranslate"><div class="highlight"><pre><span></span><span class="go">./mainscript /Give/The/Path/Folder  Im1.extension Im2.extension  keyword=new_value</span>
+<span class="go">   Mask=Mask.extension Path_Mask=/Path/Folder/OfMask</span>
 </pre></div>
 </div>
 </section>
