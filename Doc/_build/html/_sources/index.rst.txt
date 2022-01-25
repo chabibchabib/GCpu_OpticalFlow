@@ -24,6 +24,12 @@ Welcome to GCPU Optical Flow's documentation!
 
    modules
 
+.. toctree::
+   :maxdepth: 2
+   :caption: Bibliography:
+
+   References
+
 
 Indices and tables
 ==================

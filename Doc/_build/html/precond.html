@@ -15,6 +15,7 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -39,25 +40,28 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Introduction:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="README.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html">Requirements</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Structure:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="Structurs.html">Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Structurs.html">A. Src</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Structurs.html#b-test">B. Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Structurs.html#c-images">C. Images</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Modules:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Sources</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="compute_flow.html">Compute flow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="denoise_LOnp.html">denoise LOnp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="denoise_LOcp.html">denoise LOcp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="energies.html">Energies module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="flow_operator.html">Flow operator</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Precond</a></li>
-<li class="toctree-l2"><a class="reference internal" href="solveur_precond.html">Solveur precond</a></li>
-<li class="toctree-l2"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compute_flow.html">Compute flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="denoise_LOnp.html">denoise LOnp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="denoise_LOcp.html">denoise LOcp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="energies.html">Energies module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flow_operator.html">Flow operator</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Precond</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solveur_precond.html">Solveur precond</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a></li>
 </ul>
-</li>
+<p class="caption" role="heading"><span class="caption-text">Bibliography:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="References.html">Bibliography</a></li>
 </ul>
 
         </div>
@@ -74,7 +78,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="modules.html">Sources</a> &raquo;</li>
+          <li><a href="modules.html">&lt;no title&gt;</a> &raquo;</li>
       <li>Precond</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/precond.rst.txt" rel="nofollow"> View page source</a>
@@ -92,7 +96,7 @@ This function will be used to create a matrix-free solver.</p>
 <span class="target" id="module-precond"></span><dl class="py function">
 <dt class="sig sig-object py" id="precond.Px">
 <span class="sig-prename descclassname"><span class="pre">precond.</span></span><span class="sig-name descname"><span class="pre">Px</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ix2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Iy2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lmbda</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lmbda2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#precond.Px" title="Permalink to this definition"></a></dt>
-<dd><p>This function is used to compute the product of P^-1*x without storing the matrix P^-1.
+<dd><p>This function is used to compute the product of <span class="math notranslate nohighlight">\(P^{-1}x\)</span> without storing the matrix <span class="math notranslate nohighlight">\(P^-1\)</span>.
 Where P is the given preconditioner and x is a given vector.
 This function will be used to construct the preconditioned version of the Minres solver.</p>
 <blockquote>
@@ -117,8 +121,10 @@ This function will be used to construct the preconditioned version of the Minres
 </div></blockquote>
 <p>Returns:</p>
 <blockquote>
-<div><p>res : ndarray
-A 2*M*N vector res=P^-1*x</p>
+<div><dl class="simple">
+<dt>res<span class="classifier">ndarray</span></dt><dd><p><span class="math notranslate nohighlight">\(2\times M\times N\)</span> vector, where  <span class="math notranslate nohighlight">\(res=P^{-1}x\)</span></p>
+</dd>
+</dl>
 </div></blockquote>
 </div></blockquote>
 </dd></dl>

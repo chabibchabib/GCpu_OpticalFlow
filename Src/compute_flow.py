@@ -131,7 +131,7 @@ def compute_flow(Im1, Im2,  py_lev, factor, ordre_inter, lmbda, size_median_filt
                 Tikhonov Parameter
 
             size_median_filter : int 
-                size of the window used to compute the median filter or Li and Osher filter.
+                size of the window used to compute the median filter or Li and Osher filter :footcite:p:`LiOsher`.
 
             max_linear_iter : int
                 The number of the linearization steps desired. In the case for the quadratic norm 1 is enough. 

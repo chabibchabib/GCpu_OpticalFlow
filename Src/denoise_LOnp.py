@@ -3,7 +3,7 @@ from math import floor, ceil
 from numpy import matlib
 from time import time as t
 import numba as nb
-'''In This file we will implement the Li and Osher median filter
+'''In This file we will implement the Li and Osher median filter :footcite:p:`LiOsher`
 This Filter will be applied after each warping step.  
 '''
 #####################################################
@@ -48,7 +48,7 @@ def im2col(mtx, mtx2,  block_size):
 
 
 def denoise_LO(un, vn, median_filter_size, lambda23, niters):
-    '''Denoising using the Li & Osher median formula
+    '''Denoising using the Li & Osher median formula :footcite:p:`LiOsher` 
     Y. Li and Osher "A New Median Formula with Applications to PDE Based
 
     Parameters:
@@ -62,7 +62,9 @@ def denoise_LO(un, vn, median_filter_size, lambda23, niters):
             The factor used for Li and Osher formulation
         niters : int 
             Number of iterations  
+    
     '''
+
     mfsize = median_filter_size
     hfsize = floor(mfsize/2)
     n = (mfsize*mfsize-1)/2

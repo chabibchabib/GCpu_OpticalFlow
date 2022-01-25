@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Structure &mdash; GCPU Optical Flow  documentation</title>
+  <title>A. Src &mdash; GCPU Optical Flow  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -15,11 +15,12 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Sources" href="modules.html" />
-    <link rel="prev" title="Introduction" href="README.html" /> 
+    <link rel="next" title="&lt;no title&gt;" href="modules.html" />
+    <link rel="prev" title="Requirements" href="README.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -39,20 +40,29 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Introduction:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="README.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html">Requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html#method">METHOD</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Structure:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Structure</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#a-src">A. Src</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#b-test">B. Test</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#c-images">C. Images</a></li>
-</ul>
-</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">A. Src</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#b-test">B. Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#c-images">C. Images</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Modules:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compute_flow.html">Compute flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="denoise_LOnp.html">denoise LOnp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="denoise_LOcp.html">denoise LOcp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="energies.html">Energies module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flow_operator.html">Flow operator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="precond.html">Precond</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solveur_precond.html">Solveur precond</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bibliography:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="References.html">Bibliography</a></li>
 </ul>
 
         </div>
@@ -69,7 +79,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Structure</li>
+      <li>A. Src</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/Structurs.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -79,38 +89,41 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="structure">
-<h1>Structure<a class="headerlink" href="#structure" title="Permalink to this headline"></a></h1>
-<section id="a-src">
-<h2>A. Src<a class="headerlink" href="#a-src" title="Permalink to this headline"></a></h2>
+  <section id="a-src">
+<h1>A. Src<a class="headerlink" href="#a-src" title="Permalink to this headline"></a></h1>
 <p>Is a folder containaing the main python software sources.</p>
-<dl class="simple">
-<dt>Utils :</dt><dd><p>Utils imports the required functions and modules to run the code. The GPU version of the software will be privileged. If Utils find some missing functions or modules the CPU version will be launched.</p>
+<p>Utils:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">Utils</span></code> imports the required functions and modules to run the code. The GPU version of the software will be privileged.</p>
+<p>If Utils find some missing functions or modules the CPU version will be launched.</p>
+</div></blockquote>
+<p>Precond:</p>
+<blockquote>
+<div><p>Is used to compute the matrix-vector product  of the inverse of the chosen preconditioner and a given vector.</p>
+<p>This function will be used to create a matrix-free solver.</p>
+</div></blockquote>
+<dl>
+<dt>Solveur_precon :</dt><dd><p>It’s a matrix-free implementation of Minres solver used in scipy.sparse and the function Minres of Matlab. This function is adapted to solve the following problem</p>
+<div class="math notranslate nohighlight">
+\[P^{-1}Ax=P^{-1}b\]</div>
+<p>Where <span class="math notranslate nohighlight">\(A\)</span> is the optical flow matrix, <span class="math notranslate nohighlight">\(b\)</span> the right hand term and <span class="math notranslate nohighlight">\(P\)</span> is the chosen preconditioner already defined in Precond file.</p>
+<p>If we are handling <span class="math notranslate nohighlight">\(N \times M\)</span> images, then the problem has <span class="math notranslate nohighlight">\(2\times N \times M\)</span> as size.</p>
+<p>The file contains also a function that computes the  matrix-product of matrix of the problem and  a  given vector.</p>
 </dd>
-<dt>Precond :</dt><dd><dl class="simple">
-<dt>Is used to compute the matrix-vector product  of the inverse of the chosen preconditioner and a given vector.</dt><dd><p>This function will be used to create a matrix-free solver.</p>
+<dt>Flow_operator:</dt><dd><p>The role  of  <code class="docutils literal notranslate"><span class="pre">flow_operator</span></code> module is the interpolation of the images using the current computed flow fields, the construction of the right hand term of the linear system and the definition of  the base function for computing flow field that will be used at each level of the pyramid.</p>
 </dd>
-</dl>
+<dt>Compute_flow:</dt><dd><p>Computes the optical flow fields using a pyramidal approach and the base function already defined in <code class="docutils literal notranslate"><span class="pre">flow_operator</span></code>.</p>
 </dd>
-<dt>Solveur_precon :</dt><dd><p>It’s a matrix-free implementation of Minres solver  used in scipy.sparse and the function Minres of Matlab. This function is adapted to solve the following problem                                          P^-1*A*x=P^-1*b.
-Where A is the optical flow matrix, b the right hand term and P is the chosen preconditioner already defined in Precond file.
-If we are working with the  N x M images, then the problem solved have 2xNxM as size.
-The file contains also a function that computes the  matrix-product of matrix of the problem (A) and  a  given vector.</p>
+<dt>Energies:</dt><dd><p>For computing the different energies described in the paper of D.Sun[.</p>
 </dd>
-<dt>Flow_operator :</dt><dd><p>The rôle  of  flow_operator module is the interpolation of the images using the current computed flow fields, the construction of the right hand term of the linear system and the definition of  the base function for computing flow field that will be used at each level of the pyramid.</p>
-</dd>
-<dt>Compute_flow :</dt><dd><p>Computes the optical flow fields using a pyramidal approach and the base function already defined in flow_operator.</p>
-</dd>
-<dt>Energies :</dt><dd><p>For computing the different energies described in the paper of D.Sun[.</p>
-</dd>
-<dt>Denoise_LO :</dt><dd><p>Li and Osher median filter implementation.</p>
+<dt>Denoise_LO:</dt><dd><p>Li and Osher <a class="footnote-reference brackets" href="#footcite-liosher" id="id1">1</a> median filter implementation.</p>
 </dd>
 </dl>
 </section>
 <section id="b-test">
-<h2>B. Test<a class="headerlink" href="#b-test" title="Permalink to this headline"></a></h2>
+<h1>B. Test<a class="headerlink" href="#b-test" title="Permalink to this headline"></a></h1>
 <p>To test the method we created a script able to read and modify the parameters of the algorithm using the sys.argv arguments.
-To run the script you can use <code class="docutils literal notranslate"><span class="pre">./mainscript</span></code>, then you have to add at least three arguments :</p>
+To run the script you can use <code class="docutils literal notranslate"><span class="pre">./mainscript</span></code>, then you have to add at least three arguments:</p>
 <ol class="arabic simple">
 <li><p>Path of the images folder</p></li>
 <li><p>Name of the first image  of the sequence</p></li>
@@ -121,8 +134,8 @@ To run the script you can use <code class="docutils literal notranslate"><span 
 </pre></div>
 </div>
 <p>To change the value of a desired parameter, you must add it after the executable using it’s key :</p>
-<table class="colwidths-given docutils align-default" id="id1">
-<caption><span class="caption-text">Variables and their keys</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<table class="colwidths-given docutils align-default" id="id2">
+<caption><span class="caption-number">Table 2 </span><span class="caption-text">Variables and their keys</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 25%" />
@@ -187,17 +200,16 @@ To run the script you can use <code class="docutils literal notranslate"><span 
 </div>
 </section>
 <section id="c-images">
-<h2>C. Images<a class="headerlink" href="#c-images" title="Permalink to this headline"></a></h2>
+<h1>C. Images<a class="headerlink" href="#c-images" title="Permalink to this headline"></a></h1>
 <p>In order to test the software, three image sequences and some masks with different shapes were given in this folder.</p>
-</section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="README.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="modules.html" class="btn btn-neutral float-right" title="Sources" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="README.html" class="btn btn-neutral float-left" title="Requirements" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="modules.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

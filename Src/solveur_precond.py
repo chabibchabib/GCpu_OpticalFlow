@@ -14,10 +14,10 @@ def my_dot2(Ix2, Iy2, Ixy, lmbda, lmbda2, U, N, M):
         Parameters:
 
             Ix2 : ndarray
-                Ix^2 square of the spatial derivative with respect to x (Ix)
+                Ix^2 square of the spatial derivative with respect to x :math:`(I_x)`
 
             Iy2 : ndarray 
-                Iy^2 square of the spatial derivatives with respect to y (Iy)
+                Iy^2 square of the spatial derivatives with respect to y :math:`(I_y)`
 
             Ixy : ndarray
                 The product of Ix and Iy 
@@ -29,7 +29,7 @@ def my_dot2(Ix2, Iy2, Ixy, lmbda, lmbda2, U, N, M):
                 The term related to the auxiliary fields uhat and vhat
 
             U : ndarray
-                An 2*M*N vector
+                A :math:`2\\times M\\times N`  vector
 
             N : int
                 Number of the image rows
@@ -40,7 +40,7 @@ def my_dot2(Ix2, Iy2, Ixy, lmbda, lmbda2, U, N, M):
         Returns:
 
             res : ndarray
-                The product of A*U
+                The product of A and U
                
     '''
     npix = N*M  # Number of pixels
@@ -69,7 +69,7 @@ def my_dot2(Ix2, Iy2, Ixy, lmbda, lmbda2, U, N, M):
 
 def minres(Ix2, Iy2, Ixy, lmbda, lmbda2, b, maxiter, rtol, N, M):
     '''
-    This is an implementation of minres code used in scipy.sparse and the funcion minres of Matlab 
+    This is an implementation of `Minres <https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.linalg.minres.html>`_ code used in scipy.sparse  and the funcion minres of Matlab 
     But it's adapted to solve the pb of the form:
 
     .. math::
@@ -95,7 +95,7 @@ def minres(Ix2, Iy2, Ixy, lmbda, lmbda2, b, maxiter, rtol, N, M):
     functions my_dot (and the function :math:`Px` respectively) to show the algorithm how to cumpute the Matrix-vector product of :math:`Ax` (and 
     :math:`P^{-1}x`  respectively).
     
-    For more information about the solver: `MINRES <https://web.stanford.edu/group/SOL/software/minres/>`_
+    For more information about the solver: `MINRES <https://web.stanford.edu/group/SOL/software/minres/>`_ 
 
         Parameters:
 

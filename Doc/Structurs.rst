@@ -1,39 +1,49 @@
 =========
-Structure
-=========
-
 A. Src
-------
+=========
 Is a folder containaing the main python software sources. 
 
-Utils : 
-    Utils imports the required functions and modules to run the code. The GPU version of the software will be privileged. If Utils find some missing functions or modules the CPU version will be launched. 
+Utils:
 
-Precond :
-    Is used to compute the matrix-vector product  of the inverse of the chosen preconditioner and a given vector. 
-	This function will be used to create a matrix-free solver.
+  ``Utils`` imports the required functions and modules to run the code. The GPU version of the software will be privileged.
+
+  If Utils find some missing functions or modules the CPU version will be launched. 
+
+Precond:
+
+  Is used to compute the matrix-vector product  of the inverse of the chosen preconditioner and a given vector. 
+
+  This function will be used to create a matrix-free solver.
 
 Solveur_precon :   
-    It’s a matrix-free implementation of Minres solver  used in scipy.sparse and the function Minres of Matlab. This function is adapted to solve the following problem   	                                 P^-1*A*x=P^-1*b.
-    Where A is the optical flow matrix, b the right hand term and P is the chosen preconditioner already defined in Precond file.
-    If we are working with the  N x M images, then the problem solved have 2xNxM as size.  
-    The file contains also a function that computes the  matrix-product of matrix of the problem (A) and  a  given vector.
+  It's a matrix-free implementation of Minres solver used in scipy.sparse and the function Minres of Matlab. This function is adapted to solve the following problem 
+  
+  .. math::
+  
+    P^{-1}Ax=P^{-1}b
 
-Flow_operator :
-    The rôle  of  flow_operator module is the interpolation of the images using the current computed flow fields, the construction of the right hand term of the linear system and the definition of  the base function for computing flow field that will be used at each level of the pyramid.
+  Where :math:`A` is the optical flow matrix, :math:`b` the right hand term and :math:`P` is the chosen preconditioner already defined in Precond file.
 
-Compute_flow :   
-    Computes the optical flow fields using a pyramidal approach and the base function already defined in flow_operator.
+  If we are handling :math:`N \times M` images, then the problem has :math:`2\times N \times M` as size.  
 
-Energies :
+  The file contains also a function that computes the  matrix-product of matrix of the problem and  a  given vector.
+
+Flow_operator:
+  The role  of  ``flow_operator`` module is the interpolation of the images using the current computed flow fields, the construction of the right hand term of the linear system and the definition of  the base function for computing flow field that will be used at each level of the pyramid.
+
+Compute_flow:   
+  Computes the optical flow fields using a pyramidal approach and the base function already defined in ``flow_operator``.
+
+Energies:
     For computing the different energies described in the paper of D.Sun[.
-Denoise_LO :
-    Li and Osher median filter implementation.
+Denoise_LO:
+    Li and Osher :footcite:p:`\LiOsher` median filter implementation.
 
+=======
 B. Test
--------
+=======
 To test the method we created a script able to read and modify the parameters of the algorithm using the sys.argv arguments.  
-To run the script you can use ``./mainscript``, then you have to add at least three arguments :
+To run the script you can use ``./mainscript``, then you have to add at least three arguments:
 
 1. Path of the images folder 
 2. Name of the first image  of the sequence
@@ -94,8 +104,8 @@ To change the value of a desired parameter, you must add it after the executable
 
  ./mainscript /Give/The/Path/Folder  Im1.extension Im2.extension  keyword=new_value 	Mask=Mask.extension Path_Mask=/Path/Folder/OfMask 
 
-
+=========
 C. Images
----------
+=========
 In order to test the software, three image sequences and some masks with different shapes were given in this folder.
 

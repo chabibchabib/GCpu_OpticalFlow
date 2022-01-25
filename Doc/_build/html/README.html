@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Introduction &mdash; GCPU Optical Flow  documentation</title>
+  <title>Requirements &mdash; GCPU Optical Flow  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -15,10 +15,11 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Structure" href="Structurs.html" />
+    <link rel="next" title="A. Src" href="Structurs.html" />
     <link rel="prev" title="Welcome to GCPU Optical Flow’s documentation!" href="index.html" /> 
 </head>
 
@@ -39,20 +40,38 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Introduction:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Requirements</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#a-for-the-cpu-version">A. For the CPU version:</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#b-for-the-cpu-version">B. For the CPU version:</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#method">Method</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#a-energy">A. Energy:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#b-minimization">B. Minimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c-summary-of-the-method">C. Summary of the method</a></li>
 </ul>
 </li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Structure:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="Structurs.html">Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Structurs.html">A. Src</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Structurs.html#b-test">B. Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Structurs.html#c-images">C. Images</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Modules:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">Sources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compute_flow.html">Compute flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="denoise_LOnp.html">denoise LOnp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="denoise_LOcp.html">denoise LOcp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="energies.html">Energies module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flow_operator.html">Flow operator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="precond.html">Precond</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solveur_precond.html">Solveur precond</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bibliography:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="References.html">Bibliography</a></li>
 </ul>
 
         </div>
@@ -69,7 +88,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Introduction</li>
+      <li>Requirements</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/README.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -79,15 +98,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h1>
-<p>This code is an accelerated open-source software for 2D optical flow estimation and mechanical strain.
-The code is based on <a class="reference external" href="https://cs.brown.edu/people/dqsun/pubs/cvpr_2010_flow.pdf">D. Sun</a>  method with some improvements.</p>
+  <p>This code is an accelerated open-source software for 2D optical flow estimation and mechanical strain.
+The code is based on <a class="reference external" href="https://cs.brown.edu/people/dqsun/pubs/cvpr_2010_flow.pdf">D. Sun</a> <a class="footnote-reference brackets" href="#footcite-dsun" id="id1">1</a>  method with some improvements.</p>
 <section id="requirements">
-<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline"></a></h2>
+<h1>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline"></a></h1>
 <p>There are two versions of the software: a CPU and a GPU version.
 To use the code, you  will need Python 3 (3.6 or higher) with the following modules:</p>
-</section>
 <section id="a-for-the-cpu-version">
 <h2>A. For the CPU version:<a class="headerlink" href="#a-for-the-cpu-version" title="Permalink to this headline"></a></h2>
 <ul class="simple">
@@ -98,7 +114,7 @@ To use the code, you  will need Python 3 (3.6 or higher) with the following modu
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>You may also need <a class="reference external" href="https://numba.pydata.org/">Numba</a> if Li and Osher filter will be used</p>
+<p>You may also need <a class="reference external" href="https://numba.pydata.org/">Numba</a> if Li and Osher filter <a class="footnote-reference brackets" href="#footcite-liosher" id="id2">2</a> will be used</p>
 </div>
 </section>
 <section id="b-for-the-cpu-version">
@@ -115,13 +131,100 @@ Beside the previous packages some additional ones with some and APIs will be nee
 </div>
 </section>
 </section>
+<section id="method">
+<h1>Method<a class="headerlink" href="#method" title="Permalink to this headline"></a></h1>
+<section id="a-energy">
+<h2>A. Energy:<a class="headerlink" href="#a-energy" title="Permalink to this headline"></a></h2>
+<p>Energy to minimize:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{equation*}
+\begin{aligned}
+E(u,v,\hat{u},\hat{v}) =&amp; \textcolor{black}{\sum_{i,j}{\Bigg\{ \rho_D( I_1(i,j)-I_2(i+u_{ij},j+v_{ij}) ) + \lambda[\rho_S(u_{ij}-u_{i+1,j})}  }\\
+&amp;+\textcolor{black}{\rho_S(u_{ij}-u_{i,j+1})+\rho_S(v_{ij}-v_{i+1,j})+\rho_S(v_{ij}-v_{i,j+1})]\Bigg\} }  \\
+&amp;‌+ \textcolor{blue}{\lambda_2(\mid\mid u-\hat{u} \mid\mid^2+\mid\mid v-\hat{v} \mid\mid^2)}\\
+&amp;+\textcolor{OliveGreen}{\sum_{i,j}{\sum_{(i',j')\in N_{i,j}}{\lambda_3(\mid{\hat{u}_{ij}-\hat{u} _{i'j'}\mid}+\mid{\hat{v}_{ij}-\hat{v}_{i'j'}}\mid)}}}
+\end{aligned}
+\end{equation*}\end{split}\]</div>
+<p>Where:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\textcolor{black}{\text{Term in braces is the same as classical methods}}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\textcolor{blue}{\text{Encourages $(\hat{u}, \hat{v})$ and $(u,v)$ to be the same}}\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\textcolor{OliveGreen}{\text{Smoothes $\hat{u}, \hat{v}$}}\)</span></p></li>
+</ul>
+</div></blockquote>
+<table class="colwidths-given docutils align-default" id="id5">
+<caption><span class="caption-number">Table 1 </span><span class="caption-text">Parameters and their definition</span><a class="headerlink" href="#id5" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 67%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Definition</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\hat{u}\)</span></p></td>
+<td><p>The auxiliary horizontal flow fields</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\hat{v}\)</span></p></td>
+<td><p>The auxiliary vertical flow fields</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(N_{ij}\)</span></p></td>
+<td><p>The neighbouring pixels of the pixel (i,j)</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\lambda _2 \text{ and }\lambda _3\)</span></p></td>
+<td><p>Scalar weights</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(\rho_D \text{ and }\rho_D\)</span></p></td>
+<td><p>Penalties</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="b-minimization">
+<h2>B. Minimization<a class="headerlink" href="#b-minimization" title="Permalink to this headline"></a></h2>
+<p>The previous objective will be optimized  by alternately minimizing:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{equation*}
+\begin{aligned}
+E_O(u,v) =&amp;\sum_{i,j}\rho _D( I_1(i,j)-I_2(i+u_{ij},j+v_{i,j}) ) \\
+&amp;+\lambda[\rho_S(u_{ij}-u_{i+1,j})+\rho_S(u_{ij}-u_{i,j+1})+\rho_S(v_{ij}-v_{i+1,j}) \\
+&amp; +\rho_S(v_{ij}-v_{i,j+1}) ]+\lambda_2(\mid\mid u-\hat{u}\mid\mid^2+\mid\mid v-\hat{v} \mid\mid^2)  \\
+\end{aligned}
+\end{equation*}\end{split}\]</div>
+<p>And</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{equation*}
+\begin{aligned}
+E_M(\hat{u},\hat{v})=&amp;  \lambda_2(\mid\mid  u-\hat{u}\mid\mid ^2+\mid\mid v-\hat{v}\mid\mid ^2)\\
+&amp;+\sum_{i,j}\sum_{ (i',j') \in N_{i,j} } \lambda_3(\mid{\hat{u}_{ij}-\hat{u}_{i'j'}}\mid+\mid \hat{v}_{ij}-\hat{v}_{i'j'}\mid) \text{           }      \\
+\end{aligned}
+\end{equation*}\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(E_O\)</span> will be minimized first during the alterning optimization with <span class="math notranslate nohighlight">\(\hat{u},\hat{v}\)</span> fixed. Then with fixed <span class="math notranslate nohighlight">\(u,v\)</span> we minimize <span class="math notranslate nohighlight">\(E_M\)</span></p>
+</section>
+<section id="c-summary-of-the-method">
+<h2>C. Summary of the method<a class="headerlink" href="#c-summary-of-the-method" title="Permalink to this headline"></a></h2>
+<blockquote>
+<div><ul class="simple">
+<li><p>Build a pyramid of the images.</p></li>
+<li><p>Using the following derivation kernel: <span class="math notranslate nohighlight">\(h=\frac{1}{12}[-1, 8, 0 ,-8 ,1]\)</span></p></li>
+<li><p>Cancelling the derivatives at pixels where the movement is out of the edges</p></li>
+<li><p>Compute the steps <span class="math notranslate nohighlight">\(du,dv\)</span> by solving a linear system</p></li>
+<li><p>Update u and v</p></li>
+<li><p>Compute <span class="math notranslate nohighlight">\(\hat{u},\hat{v}\)</span> by  Li and Osher or a simple median filter at each iteration</p></li>
+</ul>
+</div></blockquote>
+</section>
+</section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="index.html" class="btn btn-neutral float-left" title="Welcome to GCPU Optical Flow’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="Structurs.html" class="btn btn-neutral float-right" title="Structure" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Structurs.html" class="btn btn-neutral float-right" title="A. Src" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

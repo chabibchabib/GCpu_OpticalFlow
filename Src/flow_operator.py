@@ -161,7 +161,7 @@ def conv_matrix(F, sz):
 
 
 def deriv_charbonnier_over_x(x, sigma, a):
-    ''' Evaluate derivative of Charbonnier function divided by argument.
+    ''' Evaluate the derivative of Charbonnier function divided by argument.
 
         Parameters :
 
@@ -186,7 +186,7 @@ def deriv_charbonnier_over_x(x, sigma, a):
 
 
 def deriv_quadra_over_x(x, sigma):
-    ''' Evaluate derivative of quadratic norm divided by argument 
+    ''' Evaluate the derivative of quadratic norm divided by argument 
     
         Parameters:
 
@@ -205,7 +205,7 @@ def deriv_quadra_over_x(x, sigma):
 
 
 def flow_operator(u, v, du, dv, It, Ix, Iy, lmbda, npixels):
-    ''' Returns the right hand term for the linear system with the form A * dU = b using the quadratic norm.  
+    ''' Returns the right hand term for the linear system with the form :math:`A\\times dU = b` using the quadratic norm.  
     The flow equation is linearized around UV.
 
     Parameters:

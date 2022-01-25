@@ -39,25 +39,28 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Introduction:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="README.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html">Requirements</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Structure:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="Structurs.html">Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Structurs.html">A. Src</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Structurs.html#b-test">B. Test</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Structurs.html#c-images">C. Images</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Modules:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Sources</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="compute_flow.html">Compute flow</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">denoise LOnp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="denoise_LOcp.html">denoise LOcp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="energies.html">Energies module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="flow_operator.html">Flow operator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="precond.html">Precond</a></li>
-<li class="toctree-l2"><a class="reference internal" href="solveur_precond.html">Solveur precond</a></li>
-<li class="toctree-l2"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compute_flow.html">Compute flow</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">denoise LOnp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="denoise_LOcp.html">denoise LOcp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="energies.html">Energies module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flow_operator.html">Flow operator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="precond.html">Precond</a></li>
+<li class="toctree-l1"><a class="reference internal" href="solveur_precond.html">Solveur precond</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a></li>
 </ul>
-</li>
+<p class="caption" role="heading"><span class="caption-text">Bibliography:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="References.html">Bibliography</a></li>
 </ul>
 
         </div>
@@ -74,7 +77,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="modules.html">Sources</a> &raquo;</li>
+          <li><a href="modules.html">&lt;no title&gt;</a> &raquo;</li>
       <li>denoise LOnp</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/denoise_LOnp.rst.txt" rel="nofollow"> View page source</a>
@@ -87,11 +90,11 @@
              
   <section id="denoise-lonp">
 <h1>denoise LOnp<a class="headerlink" href="#denoise-lonp" title="Permalink to this headline"></a></h1>
-<p><a class="reference external" href="https://projecteuclid.org/journals/communications-in-mathematical-sciences/volume-7/issue-3/A-new-median-formula-with-applications-to-PDE-based-denoising/cms/1256562821.full">Li and Osher</a> median filter implementation</p>
+<p><a class="reference external" href="https://projecteuclid.org/journals/communications-in-mathematical-sciences/volume-7/issue-3/A-new-median-formula-with-applications-to-PDE-based-denoising/cms/1256562821.full">Li and Osher</a> <a class="footnote-reference brackets" href="#footcite-liosher" id="id1">1</a> median filter implementation</p>
 <span class="target" id="module-denoise_LOnp"></span><dl class="py function">
 <dt class="sig sig-object py" id="denoise_LOnp.denoise_LO">
 <span class="sig-prename descclassname"><span class="pre">denoise_LOnp.</span></span><span class="sig-name descname"><span class="pre">denoise_LO</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">un</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">median_filter_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lambda23</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">niters</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#denoise_LOnp.denoise_LO" title="Permalink to this definition"></a></dt>
-<dd><p>Denoising using the Li &amp; Osher median formula
+<dd><p>Denoising using the Li &amp; Osher median formula <a class="footnote-reference brackets" href="#footcite-liosher" id="id2">1</a> 
 Y. Li and Osher “A New Median Formula with Applications to PDE Based</p>
 <dl class="simple">
 <dt>Parameters:</dt><dd><dl class="simple">

@@ -3,7 +3,7 @@ from utils import *
 
 
 def Px(Ix2, Iy2, lmbda, lmbda2, N, M, x):
-    '''This function is used to compute the product of P^-1*x without storing the matrix P^-1.
+    '''This function is used to compute the product of :math:`P^{-1}x` without storing the matrix :math:`P^-1`.
     Where P is the given preconditioner and x is a given vector.
     This function will be used to construct the preconditioned version of the Minres solver.
 
@@ -33,7 +33,7 @@ def Px(Ix2, Iy2, lmbda, lmbda2, N, M, x):
         Returns:
 
             res : ndarray
-            A 2*M*N vector res=P^-1*x
+                :math:`2\\times M\\times N` vector, where  :math:`res=P^{-1}x`
                       
         '''
 
