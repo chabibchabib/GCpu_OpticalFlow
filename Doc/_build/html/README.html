@@ -20,7 +20,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="A. Src" href="Structurs.html" />
-    <link rel="prev" title="Welcome to GCPU Optical Flow’s documentation!" href="index.html" /> 
+    <link rel="prev" title="Welcome to GCPU_Optical Flow’s documentation!" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -61,21 +61,21 @@
 <p class="caption" role="heading"><span class="caption-text">Modules:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="compute_flow.html">Compute flow</a></li>
-<li class="toctree-l1"><a class="reference internal" href="denoise_LOnp.html">denoise LOnp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="denoise_LOnp.html">Denoise LOnp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="denoise_LOcp.html">denoise LOcp</a></li>
-<li class="toctree-l1"><a class="reference internal" href="energies.html">Energies module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="energies.html">Energies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="flow_operator.html">Flow operator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="precond.html">Precond</a></li>
 <li class="toctree-l1"><a class="reference internal" href="solveur_precond.html">Solveur precond</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Bibliography:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="References.html">Bibliography</a></li>
-</ul>
 <p class="caption" role="heading"><span class="caption-text">Tutorial:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="Tuto.html">Tutorial</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bibliography:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="References.html">Bibliography</a></li>
 </ul>
 
         </div>
@@ -104,6 +104,15 @@
              
   <p>This code is an accelerated open-source software for 2D optical flow estimation and mechanical strain.
 The code is based on <a class="reference external" href="https://cs.brown.edu/people/dqsun/pubs/cvpr_2010_flow.pdf">D. Sun</a> <a class="footnote-reference brackets" href="#footcite-dsun" id="id1">1</a>  method with some improvements.</p>
+<p id="id2"><dl class="citation">
+<dt class="label" id="id5"><span class="brackets">LO09</span></dt>
+<dd><p>Y. Li and S. Osher. A new median formula with applications to pde based denoising. <em>Commun. Math</em>, 7:741–753, 2009.</p>
+</dd>
+<dt class="label" id="id4"><span class="brackets">SRB10</span></dt>
+<dd><p>D. Sun, S. Roth, and M. J. Black. Secrets of optical flow estimation and their principles. <em>IEEE computer society conference on computer vision and pattern recognition.</em>, 17:2432–2439, 2010.</p>
+</dd>
+</dl>
+</p>
 <section id="requirements">
 <h1>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline"></a></h1>
 <p>There are two versions of the software: a CPU and a GPU version.
@@ -118,13 +127,13 @@ To use the code, you  will need Python 3 (3.6 or higher) with the following modu
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>You may also need <a class="reference external" href="https://numba.pydata.org/">Numba</a> if Li and Osher filter <a class="footnote-reference brackets" href="#footcite-liosher" id="id2">2</a> will be used</p>
+<p>You may also need <a class="reference external" href="https://numba.pydata.org/">Numba</a> if Li and Osher filter <a class="footnote-reference brackets" href="#footcite-liosher" id="id8">2</a> will be used</p>
 </div>
 </section>
 <section id="b-for-the-cpu-version">
 <h2>B. For the CPU version:<a class="headerlink" href="#b-for-the-cpu-version" title="Permalink to this headline"></a></h2>
 <p>For the GPU version you will first need an  NVIDIA CUDA GPU with the Compute Capability 3.0 or larger.
-Beside the previous packages some additional ones with some and APIs will be needed to run the code on GPU</p>
+Beside the previous packages some additional ones will be needed to run the code on GPU</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://cupy.dev/">Cupy</a></p></li>
 <li><p><a class="reference external" href="https://docs.rapids.ai/api/cucim/stable/api.html">cuCIM API</a></p></li>
@@ -157,8 +166,8 @@ E(u,v,\hat{u},\hat{v}) =&amp; \textcolor{black}{\sum_{i,j}{\Bigg\{ \rho_D( I_1(i
 <li><p><span class="math notranslate nohighlight">\(\textcolor{OliveGreen}{\text{Smoothes $\hat{u}, \hat{v}$}}\)</span></p></li>
 </ul>
 </div></blockquote>
-<table class="colwidths-given docutils align-default" id="id5">
-<caption><span class="caption-number">Table 1 </span><span class="caption-text">Parameters and their definition</span><a class="headerlink" href="#id5" title="Permalink to this table"></a></caption>
+<table class="colwidths-given docutils align-default" id="id11">
+<caption><span class="caption-number">Table 1 </span><span class="caption-text">Parameters and their definition</span><a class="headerlink" href="#id11" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 33%" />
 <col style="width: 67%" />
@@ -207,6 +216,7 @@ E_M(\hat{u},\hat{v})=&amp;  \lambda_2(\mid\mid  u-\hat{u}\mid\mid ^2+\mid\mid v-
 \end{aligned}
 \end{equation*}\end{split}\]</div>
 <p><span class="math notranslate nohighlight">\(E_O\)</span> will be minimized first during the alterning optimization with <span class="math notranslate nohighlight">\(\hat{u},\hat{v}\)</span> fixed. Then with fixed <span class="math notranslate nohighlight">\(u,v\)</span> we minimize <span class="math notranslate nohighlight">\(E_M\)</span></p>
+<p><span class="math notranslate nohighlight">\(E_M\)</span> will be optimized by applying Li and Osher median filter or approximately optimized by applying a simple median filter.</p>
 </section>
 <section id="c-summary-of-the-method">
 <h2>C. Summary of the method<a class="headerlink" href="#c-summary-of-the-method" title="Permalink to this headline"></a></h2>
@@ -215,7 +225,7 @@ E_M(\hat{u},\hat{v})=&amp;  \lambda_2(\mid\mid  u-\hat{u}\mid\mid ^2+\mid\mid v-
 <li><p>Build a pyramid of the images.</p></li>
 <li><p>Using the following derivation kernel: <span class="math notranslate nohighlight">\(h=\frac{1}{12}[-1, 8, 0 ,-8 ,1]\)</span></p></li>
 <li><p>Cancelling the derivatives at pixels where the movement is out of the edges</p></li>
-<li><p>Compute the steps <span class="math notranslate nohighlight">\(du,dv\)</span> by solving a linear system</p></li>
+<li><p>Compute the steps <span class="math notranslate nohighlight">\(du,dv\)</span> by solving a linear system using Preconditionned Minres.</p></li>
 <li><p>Update u and v</p></li>
 <li><p>Compute <span class="math notranslate nohighlight">\(\hat{u},\hat{v}\)</span> by  Li and Osher or a simple median filter at each iteration</p></li>
 </ul>
@@ -227,7 +237,7 @@ E_M(\hat{u},\hat{v})=&amp;  \lambda_2(\mid\mid  u-\hat{u}\mid\mid ^2+\mid\mid v-
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to GCPU Optical Flow’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to GCPU_Optical Flow’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="Structurs.html" class="btn btn-neutral float-right" title="A. Src" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

@@ -68,7 +68,9 @@ def my_dot2(Ix2, Iy2, Ixy, lmbda, lmbda2, U, N, M):
     return res
 
 def minres(Ix2, Iy2, Ixy, lmbda, lmbda2, b, maxiter, rtol, N, M):
+
     '''
+    
     This is an implementation of `Minres <https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.linalg.minres.html>`_ code used in scipy.sparse  and the funcion minres of Matlab 
     But it's adapted to solve the pb of the form:
 

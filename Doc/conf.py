@@ -34,7 +34,7 @@ extensions = ['sphinx.ext.autodoc','sphinx_rtd_theme','sphinxcontrib.bibtex',
 numfig = True
 
 # Bib tex configuration 
-bibtex_bibfiles = ['Bib.bib']
+bibtex_bibfiles = ["Bib.bib"]
 bibtex_encoding = 'latin'
 #bibtex_default_style = 'unsrt'
 

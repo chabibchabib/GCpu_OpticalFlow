@@ -52,21 +52,21 @@
 <p class="caption" role="heading"><span class="caption-text">Modules:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="compute_flow.html">Compute flow</a></li>
-<li class="toctree-l1"><a class="reference internal" href="denoise_LOnp.html">denoise LOnp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="denoise_LOnp.html">Denoise LOnp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="denoise_LOcp.html">denoise LOcp</a></li>
-<li class="toctree-l1"><a class="reference internal" href="energies.html">Energies module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="energies.html">Energies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="flow_operator.html">Flow operator</a></li>
 <li class="toctree-l1"><a class="reference internal" href="precond.html">Precond</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Solveur precond</a></li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html">Utils</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Bibliography:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="References.html">Bibliography</a></li>
-</ul>
 <p class="caption" role="heading"><span class="caption-text">Tutorial:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="Tuto.html">Tutorial</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Bibliography:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="References.html">Bibliography</a></li>
 </ul>
 
         </div>
@@ -96,11 +96,12 @@
              
   <section id="solveur-precond">
 <h1>Solveur precond<a class="headerlink" href="#solveur-precond" title="Permalink to this headline"></a></h1>
-<p>It’s a matrix-free implementation of Minres solver  used in scipy.sparse and the function Minres of Matlab. This function is adapted to solve the following problem.
+<p>It’s a matrix-free implementation of Minres solver used in scipy.sparse and the function Minres of Matlab. This function is adapted to solve the following problem.
 <span class="math notranslate nohighlight">\(P^{-1}Ax=P^{-1}b\)</span>.</p>
 <p>Where <span class="math notranslate nohighlight">\(A\)</span> is the optical flow matrix, <span class="math notranslate nohighlight">\(b\)</span> the right hand term and <span class="math notranslate nohighlight">\(P\)</span> is the chosen preconditioner already defined in Precond file.</p>
-<p>If we are handling <span class="math notranslate nohighlight">\(N\times M\)</span> images, then the problem solved have <span class="math notranslate nohighlight">\(2\times N\times M\)</span> as size.
-The file contains also a function that computes the  matrix-product of matrix of the problem  and  a  given vector.</p>
+<p>If we are handling <span class="math notranslate nohighlight">\(N\times M\)</span> images, then the problem solved has <span class="math notranslate nohighlight">\(2\times N\times M\)</span> as size.
+The file contains also a function that computes the  matrix-vector product of matrix of the problem  and  a  given vector.</p>
+<p>Note: The Laplace operator of certain image is computed using a convolution instead of computing it with a matricial product with the Laplace matrix.</p>
 <span class="target" id="module-solveur_precond"></span><dl class="py function">
 <dt class="sig sig-object py" id="solveur_precond.minres">
 <span class="sig-prename descclassname"><span class="pre">solveur_precond.</span></span><span class="sig-name descname"><span class="pre">minres</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Ix2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Iy2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ixy</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lmbda</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lmbda2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxiter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#solveur_precond.minres" title="Permalink to this definition"></a></dt>

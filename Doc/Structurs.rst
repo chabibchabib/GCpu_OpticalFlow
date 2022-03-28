@@ -1,4 +1,4 @@
-
+.. bibliography:: Bib.bib
 A. Src
 ======
 
@@ -38,7 +38,7 @@ Is a folder containaing the main python software sources.
 :ref:`Energies`:
     For computing the different energies described in the paper of D.Sun[.
 :ref:`Denoise LOnp`:
-    Li and Osher :footcite:p:`\LiOsher` median filter implementation.
+    Li and Osher :cite:p:`LiOsher` median filter implementation.
 
 
 B. Test

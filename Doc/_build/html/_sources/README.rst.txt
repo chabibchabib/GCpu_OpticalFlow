@@ -1,7 +1,7 @@
 This code is an accelerated open-source software for 2D optical flow estimation and mechanical strain.   
 The code is based on `D. Sun <https://cs.brown.edu/people/dqsun/pubs/cvpr_2010_flow.pdf>`_ :footcite:p:`DSun`  method with some improvements.
 
-
+.. bibliography:: Bib.bib
 Requirements
 ============
 
@@ -24,7 +24,7 @@ A. For the CPU version:
 B. For the CPU version:
 -----------------------    
 For the GPU version you will first need an  NVIDIA CUDA GPU with the Compute Capability 3.0 or larger.     
-Beside the previous packages some additional ones with some and APIs will be needed to run the code on GPU
+Beside the previous packages some additional ones will be needed to run the code on GPU
 
 - `Cupy <https://cupy.dev/>`_      
 - `cuCIM API <https://docs.rapids.ai/api/cucim/stable/api.html>`_ 
@@ -109,13 +109,15 @@ And
 
 :math:`E_O` will be minimized first during the alterning optimization with :math:`\hat{u},\hat{v}` fixed. Then with fixed :math:`u,v` we minimize :math:`E_M`
 
+:math:`E_M` will be optimized by applying Li and Osher median filter or approximately optimized by applying a simple median filter. 
+
 C. Summary of the method
 ------------------------
 
    - Build a pyramid of the images.
    - Using the following derivation kernel: :math:`h=\frac{1}{12}[-1, 8, 0 ,-8 ,1]`
    - Cancelling the derivatives at pixels where the movement is out of the edges
-   - Compute the steps :math:`du,dv` by solving a linear system 
+   - Compute the steps :math:`du,dv` by solving a linear system using Preconditionned Minres. 
    - Update u and v 
    - Compute :math:`\hat{u},\hat{v}` by  Li and Osher or a simple median filter at each iteration
 
