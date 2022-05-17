@@ -1,4 +1,4 @@
-This code is an accelerated open-source software for 2D optical flow estimation and mechanical strain.   
+This code is an accelerated open-source software for the estimation of 2D optical flow and mechanical strain.   
 The code is based on `D. Sun <https://cs.brown.edu/people/dqsun/pubs/cvpr_2010_flow.pdf>`_ :footcite:p:`DSun`  method with some improvements.
 
 .. bibliography:: Bib.bib
@@ -6,7 +6,7 @@ Requirements
 ============
 
 There are two versions of the software: a CPU and a GPU version.  
-To use the code, you  will need Python 3 (3.6 or higher) with the following modules:  
+To use the code, you need Python 3 (3.6 or higher) with the following modules:  
 
 A. For the CPU version:  
 -----------------------
@@ -19,12 +19,12 @@ A. For the CPU version:
 
 
 .. note::
-   You may also need `Numba <https://numba.pydata.org/>`_ if Li and Osher filter :footcite:p:`LiOsher` will be used
+   You may also need `Numba <https://numba.pydata.org/>`_ if Li and Osher filter :footcite:p:`LiOsher` is used
 
-B. For the CPU version:
+B. For the GPU version:
 -----------------------    
-For the GPU version you will first need an  NVIDIA CUDA GPU with the Compute Capability 3.0 or larger.     
-Beside the previous packages some additional ones will be needed to run the code on GPU
+For the GPU version you first need a NVIDIA CUDA GPU with the Compute Capability 3.0 or newer.     
+Beside the previous packages, some additional ones are needed to run the code on GPU
 
 - `Cupy <https://cupy.dev/>`_      
 - `cuCIM API <https://docs.rapids.ai/api/cucim/stable/api.html>`_ 
@@ -81,7 +81,7 @@ Where:
 
 B. Minimization
 ---------------
-The previous objective will be optimized  by alternately minimizing:
+The previous objective is optimized  by alternately minimizing:
 
 
 .. math::
@@ -107,17 +107,17 @@ And
    \end{aligned}
    \end{equation*}
 
-:math:`E_O` will be minimized first during the alterning optimization with :math:`\hat{u},\hat{v}` fixed. Then with fixed :math:`u,v` we minimize :math:`E_M`
+:math:`E_O` is minimized first during the alterning optimization with :math:`\hat{u},\hat{v}` fixed. Then :math:`E_M` is minimized with fixed :math:`u,v`
 
-:math:`E_M` will be optimized by applying Li and Osher median filter or approximately optimized by applying a simple median filter. 
+:math:`E_M` is optimized by applying Li and Osher's median filter or approximately optimized by applying a simple median filter. 
 
 C. Summary of the method
 ------------------------
 
    - Build a pyramid of the images.
-   - Using the following derivation kernel: :math:`h=\frac{1}{12}[-1, 8, 0 ,-8 ,1]`
-   - Cancelling the derivatives at pixels where the movement is out of the edges
+   - Use the following derivation kernel: :math:`h=\frac{1}{12}[-1, 8, 0 ,-8 ,1]`
+   - Cancel the derivatives at pixels where the movement is out of the edges
    - Compute the steps :math:`du,dv` by solving a linear system using Preconditionned Minres. 
-   - Update u and v 
+   - Update :math:`u` and :math:`v` 
    - Compute :math:`\hat{u},\hat{v}` by  Li and Osher or a simple median filter at each iteration
 
