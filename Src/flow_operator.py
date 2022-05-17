@@ -6,7 +6,7 @@ import scipy.sparse as sparse
 #import denoise_LO as lo
 import time
 import solveur_precond as sop
-
+#import s as sop
 
 ###########################################################
 

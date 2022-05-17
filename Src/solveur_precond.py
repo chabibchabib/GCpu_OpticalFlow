@@ -65,10 +65,71 @@ def my_dot2(Ix2, Iy2, Ixy, lmbda, lmbda2, U, N, M):
     res[:npix] = u1
     res[npix:2*npix] = v1
 
-    return res
+    return res.ravel()
+
+
+
+'''
+#Testing and comparing it with minres solver of scipy sparse 
+
+N=400;  lmbda=2; M=40; maxiter=300; rtol=10**-5
+Ix=np.random.rand(N,M)
+Iy=np.random.rand(N,M)
+u0=np.random.rand(N,M)
+v0=np.random.rand(N,M)
+b=np.random.rand(2*N*M,1)
+Ix2=Ix*Ix
+Iy2=Iy*Iy
+Ixy=Ix*Iy
+b=b.astype(np.float32)
+Ix2=Ix2.astype(np.float32)
+Iy2=Iy2.astype(np.float32)
+Ixy=Ixy.astype(np.float32)'''
+
+
+'''
+####################################################
+def mv(U,lmbda,Ix,Iy,N,M):
+                #code.interact(local=locals())
+    u0=U[:N*M]
+    v0=U[N*M:]
+    u0=np.reshape(u0,(N,M),order="F")
+    v0=np.reshape(v0,(N,M),order="F")
+    Ix2=Ix*Ix
+    Iy2=Iy*Iy
+    u1=Ix2*u0+Ix*Iy*v0-2*lmbda*laplace(u0)
+    v1=Iy2*v0+Ix*Iy*u0-2*lmbda*laplace(v0)
+    v1=np.reshape(v1,(N*M,1),order='F')
+    u1=np.reshape(u1,(N*M,1),order='F')
+    return np.vstack((u1,v1))
+#U=np.vstack((np.reshape(u0,(N*M,1), order='F'),np.reshape(v0,(u0.shape[0]*u0.shape[1],1), order='F')))
+U=b
+precond=np.eye(2*N*M,2*N*M)
+precond=precond.astype(np.float32)
+for i in range(2*N*M):
+    precond[i,i]=2*i+1
+L = LinearOperator((2*M*N,2*M*N), matvec=lambda U: mv(U,lmbda,Ix,Iy,N,M)) 
+###################################################### 
+t1= time()
+x,exitcode=sparse.linalg.minres(L,b,M=precond)
+t2= time()
+xm=minres(Ix2,Iy2,Ixy,lmbda,b,maxiter,rtol,N,M,1,precond)
+t3= time()          
+xm2=minres(Ix2,Iy2,Ixy,lmbda,b,maxiter,rtol,N,M,2,precond)
+t4= time()  
+print('my x\n',xm[:10])
+print('sparse x\n',x[:10],'exit ',exitcode)
+print("SPARSE:", (t2-t1),"MY SOLVER: " , (t3-t2),"MY SOLVER DOT: " , (t4-t3))
+
+
+print('norm sparse:\n',np.linalg.norm(mv(x,lmbda,Ix,Iy,N,M)-b))
+print('norm minres:\n',np.linalg.norm(mv(xm,lmbda,Ix,Iy,N,M)-b))
+print('norm minres dot :\n',np.linalg.norm(mv(xm2,lmbda,Ix,Iy,N,M)-b))
+
+for i in range(2*N*M):
+    precond[i,i]=i+1'''
 
 def minres(Ix2, Iy2, Ixy, lmbda, lmbda2, b, maxiter, rtol, N, M):
-
     '''
     
     This is an implementation of `Minres <https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.linalg.minres.html>`_ code used in scipy.sparse  and the funcion minres of Matlab 
@@ -135,196 +196,76 @@ def minres(Ix2, Iy2, Ixy, lmbda, lmbda2, b, maxiter, rtol, N, M):
             x : ndarray
                 The solution of the system Ax=b
     '''
-    # Initialization
-    eps = 1e-11
-    realmax = 1.7977e+308
-    istop = 0
-    Anorm = 0
-    Acond = 0
-    rnorm = 0
-    ynorm = 0
-    y = b
-    r1 = b
-    '''if type(precond)=='numpy.ndarray':'''
-    # y=mul(precond,b)
-    y = Px(Ix2, Iy2, lmbda, lmbda2, N, M, b)
+    b = b.ravel()
+    v0 = cp.zeros_like(b)
+    w0 = cp.zeros_like(b)
+    w1 = cp.zeros_like(b)
+    x = cp.zeros_like(b)
 
-    beta1 = cp.sum(b*y)
-    if (beta1 <= 0):
-        istop = 9
-    beta1 = cp.sqrt(beta1)
-    oldb = 0
-    beta = beta1
-    dbar = 0
-    epsln = 0
-    qrnorm = beta1
-    phibar = beta1
-    rhs1 = beta1
-    rhs2 = 0
-    tnorm2 = 0
-    gmax = 0
-    gmin = realmax
-    cs = -1
-    sn = 0
-    w = cp.zeros_like(r1)
-    w2 = cp.zeros_like(r1)
-    x = cp.zeros_like(r1)
-    r2 = r1
-    itn = 0
-    # Main Loop
+    #q0 = mv(x,lmbda,lmbda2,Ix,Iy,N,M).ravel()
+    q0=my_dot2(Ix2, Iy2, Ixy, lmbda, lmbda2, x, N, M)
+    v1 = b-q0
+    gamma0 = cp.linalg.norm(v1)
+    z1 = Px(Ix2, Iy2, lmbda, lmbda2, N, M, v1).ravel()
+    gamma1 = cp.sqrt(cp.inner(z1,v1))
+    eta = gamma1
+    s0 = 0
+    s1 = 0
+    c0 = -1
+    c1 = -1
+    it = 0
+    norm_res = gamma1
+    Anorm=0      
+    while(it < maxiter):
+        it = it+1
+        #Lanczos factorization 
 
-    while (itn < maxiter):
-        itn = itn+1
-        s = 1/beta
-        v = s*y
-        # y=mul(A,v)
+        z1 = z1/gamma1
+        #q1 = mv(z1,lmbda,lmbda2,Ix,Iy,N,M).ravel()
+        q1=my_dot2(Ix2, Iy2, Ixy, lmbda, lmbda2, z1, N, M)
+        delta = cp.inner(q1,z1)
+        v2 = q1-(delta/gamma1)*v1
+        if it > 1:
+            v2 = v2-(gamma1/gamma0)*v0
+        v0 = v1
+        v1 = v2
 
-        y = my_dot2(Ix2, Iy2, Ixy, lmbda, lmbda2, v, N, M)
-        if (itn >= 2):
-            y = y-(beta/oldb)*r1
-        alpha = cp.sum(v*y)
-        y = (-alpha/beta)*r2+y
-        r1 = r2
-        r2 = y
-        # y=mul(precond,r2)
-        y = Px(Ix2, Iy2, lmbda, lmbda2, N, M, r2)
+        z2 = Px(Ix2, Iy2, lmbda, lmbda2, N, M, v2).ravel()
+        gamma2 = cp.sqrt(cp.inner(z2,v2))
+        
+        Anorm+=gamma2**2+gamma1**2+delta**2
 
-        oldb = beta
-        beta = cp.sum(r2*y)
-        if beta <= 0:
-            istop = 9
-            break
-        beta = cp.sqrt(beta)
-        tnorm2 = tnorm2+alpha**2+oldb**2+beta**2
-        if (itn == 1):
-            if((beta/beta1) < (10*eps)):
-                istop = -1
-                break
+        #Givens rotation
+        alpha0 = -c1*delta-c0*s1*gamma1
+        alpha1 = cp.sqrt(alpha0**2+gamma2**2)
+        alpha2 = s1*delta-c0*c1*gamma1
+        alpha3 = s0*gamma1
+        #Computing cos and sin 
 
-        oldeps = epsln
-        delta = cs*dbar+sn*alpha
-        gbar = sn*dbar-cs*alpha
-        epsln = sn*beta
-        dbar = -cs*beta
-        root = cp.sqrt(gbar**2+dbar**2)
-        Anorm = phibar*root
-        # print("Anorm",root)
+        c2 = alpha0/alpha1
+        s2 = gamma2/alpha1
+        w2 = (z1-alpha3*w0-alpha2*w1)/alpha1
+        #Update Solution 
 
-        gamma = cp.sqrt(gbar**2+beta**2)
-        gamma = max(gamma, eps)
-        cs = gbar/gamma
-        sn = beta/gamma
-        phi = cs*phibar
-        phibar = sn*phibar
+        x = x+c2*eta*w2
+        eta = s2*eta
 
-        denom = 1/gamma
+        #Next iteration
+        w0 = w1
         w1 = w2
-        w2 = w
-        w = (v-oldeps*w1-delta*w2)*denom
-        x = x+phi*w
+        gamma0 = gamma1
+        gamma1 = gamma2
+        c0 = c1
+        c1 = c2
+        s0 = s1
+        s1 = s2
+        z1 = z2
+        #print('x[0]', x[0])
+        norm_res = norm_res*abs(s2)
 
-        gmax = max(gmax, gamma)
-        gmin = min(gmin, gamma)
-        z = rhs1/gamma
-        rhs1 = rhs2-delta*z
-        rhs2 = -epsln*z
-
-        Anorm = cp.sqrt(tnorm2)
-        ynorm = cp.linalg.norm(x)
-        epsa = Anorm*eps
-        epsx = Anorm*ynorm*eps
-        epsr = Anorm*ynorm*rtol
-        diag = gbar
-        if diag == 0:
-            diag = epsa
-
-        qrnorm = phibar
-        rnorm = qrnorm
-        test1 = rnorm/(Anorm*ynorm)  # ||r|| / (||A|| ||x||)
-        test2 = root / Anorm          # ||Ar{k-1}|| / (||A|| ||r_{k-1}||)
-        Acond = gmax/gmin
-        if istop == 0:
-
-            t1 = 1+test1
-            t2 = 1+test2
-            if(t2 <= 1):
-                istop = 2
-            if(t1 <= 1):
-                istop = 1
-            if (itn > maxiter):
-
-                istop = 6
-            if(Acond >= 0.1/eps):
-                istop = 4
-            if(epsx >= beta1):
-                istop = 3
-            if(test2 <= rtol):
-                istop = 2
-        if(test1 <= rtol):
-            istop = 1
-
-        if(istop != 0):
+        ##print("minres ",it,cp.sqrt(Anorm),x[0])
+        # If ||r||/(norm(A)*norm(x))<tol As in the solver of scipy
+        if(norm_res < rtol*cp.sqrt(Anorm)*cp.linalg.norm(x)):
             break
 
-    return x
-
-
-'''
-#Testing and comparing it with minres solver of scipy sparse 
-
-N=400;  lmbda=2; M=40; maxiter=300; rtol=10**-5
-Ix=np.random.rand(N,M)
-Iy=np.random.rand(N,M)
-u0=np.random.rand(N,M)
-v0=np.random.rand(N,M)
-b=np.random.rand(2*N*M,1)
-Ix2=Ix*Ix
-Iy2=Iy*Iy
-Ixy=Ix*Iy
-b=b.astype(np.float32)
-Ix2=Ix2.astype(np.float32)
-Iy2=Iy2.astype(np.float32)
-Ixy=Ixy.astype(np.float32)'''
-
-
-'''
-####################################################
-def mv(U,lmbda,Ix,Iy,N,M):
-                #code.interact(local=locals())
-    u0=U[:N*M]
-    v0=U[N*M:]
-    u0=np.reshape(u0,(N,M),order="F")
-    v0=np.reshape(v0,(N,M),order="F")
-    Ix2=Ix*Ix
-    Iy2=Iy*Iy
-    u1=Ix2*u0+Ix*Iy*v0-2*lmbda*laplace(u0)
-    v1=Iy2*v0+Ix*Iy*u0-2*lmbda*laplace(v0)
-    v1=np.reshape(v1,(N*M,1),order='F')
-    u1=np.reshape(u1,(N*M,1),order='F')
-    return np.vstack((u1,v1))
-#U=np.vstack((np.reshape(u0,(N*M,1), order='F'),np.reshape(v0,(u0.shape[0]*u0.shape[1],1), order='F')))
-U=b
-precond=np.eye(2*N*M,2*N*M)
-precond=precond.astype(np.float32)
-for i in range(2*N*M):
-    precond[i,i]=2*i+1
-L = LinearOperator((2*M*N,2*M*N), matvec=lambda U: mv(U,lmbda,Ix,Iy,N,M)) 
-###################################################### 
-t1= time()
-x,exitcode=sparse.linalg.minres(L,b,M=precond)
-t2= time()
-xm=minres(Ix2,Iy2,Ixy,lmbda,b,maxiter,rtol,N,M,1,precond)
-t3= time()          
-xm2=minres(Ix2,Iy2,Ixy,lmbda,b,maxiter,rtol,N,M,2,precond)
-t4= time()  
-print('my x\n',xm[:10])
-print('sparse x\n',x[:10],'exit ',exitcode)
-print("SPARSE:", (t2-t1),"MY SOLVER: " , (t3-t2),"MY SOLVER DOT: " , (t4-t3))
-
-
-print('norm sparse:\n',np.linalg.norm(mv(x,lmbda,Ix,Iy,N,M)-b))
-print('norm minres:\n',np.linalg.norm(mv(xm,lmbda,Ix,Iy,N,M)-b))
-print('norm minres dot :\n',np.linalg.norm(mv(xm2,lmbda,Ix,Iy,N,M)-b))
-
-for i in range(2*N*M):
-    precond[i,i]=i+1'''
+    return cp.reshape(x,(2*N*M,1))
