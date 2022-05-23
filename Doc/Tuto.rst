@@ -2,12 +2,12 @@ Tutorial
 ========
 
 
-In this tutorial, you will quickly learn the basics of writing scripts using the code.
+In this tutorial, we will quickly learn the basics of writing your own scripts for the purpose of using the code.
 
-Before starting, you need to verify that all the :ref:`Requirements` for the desired version are already installed. 
-First, it is mandatory to create a ``.py`` file. The main function that computes the displacement was implemented in ``compute_flow`` module and has the same name.
+Before starting, you will will need to verify that all the :ref:`Requirements` for the desired version are already installed. 
+First, it is mandatory to create an ``.py`` file. The main function that computes the displacement was implemented in ``compute_flow`` module and has the same name.
 
-Therefore, you have to specify the path of  :ref:`Compute flow`. To do this, it's mandatory to use ``sys``:  
+Therefore, we have to specify the path of  :ref:`Compute flow`. To do this, it's mandatory to use ``sys``:  
 
 .. code-block:: python
 
@@ -28,8 +28,8 @@ You can use ``imread`` function of  `OpenCV <https://opencv.org/>`_ to read the 
     ``imread`` can be used also to read the mask image.
 
 
-``compute_flow`` function takes as input many **parameters** as described in :ref:`Compute flow`, it returns :math:`u`, :math:`v` the horizontal and vertical optical flow field respectively.
-Before computing the displacements many variables must be adjusted.
+``compute_flow`` function takes as input many **parameters** as how it was described in :ref:`Compute flow`, it returns :math:`u`, :math:`v` the horizontal and vertical optical flow field respectively.
+Before computing the displacements many variable must be adjusted.
  
 .. code-block:: python
 
