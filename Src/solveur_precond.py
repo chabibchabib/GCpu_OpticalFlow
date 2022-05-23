@@ -69,65 +69,7 @@ def my_dot2(Ix2, Iy2, Ixy, lmbda, lmbda2, U, N, M):
 
 
 
-'''
-#Testing and comparing it with minres solver of scipy sparse 
 
-N=400;  lmbda=2; M=40; maxiter=300; rtol=10**-5
-Ix=np.random.rand(N,M)
-Iy=np.random.rand(N,M)
-u0=np.random.rand(N,M)
-v0=np.random.rand(N,M)
-b=np.random.rand(2*N*M,1)
-Ix2=Ix*Ix
-Iy2=Iy*Iy
-Ixy=Ix*Iy
-b=b.astype(np.float32)
-Ix2=Ix2.astype(np.float32)
-Iy2=Iy2.astype(np.float32)
-Ixy=Ixy.astype(np.float32)'''
-
-
-'''
-####################################################
-def mv(U,lmbda,Ix,Iy,N,M):
-                #code.interact(local=locals())
-    u0=U[:N*M]
-    v0=U[N*M:]
-    u0=np.reshape(u0,(N,M),order="F")
-    v0=np.reshape(v0,(N,M),order="F")
-    Ix2=Ix*Ix
-    Iy2=Iy*Iy
-    u1=Ix2*u0+Ix*Iy*v0-2*lmbda*laplace(u0)
-    v1=Iy2*v0+Ix*Iy*u0-2*lmbda*laplace(v0)
-    v1=np.reshape(v1,(N*M,1),order='F')
-    u1=np.reshape(u1,(N*M,1),order='F')
-    return np.vstack((u1,v1))
-#U=np.vstack((np.reshape(u0,(N*M,1), order='F'),np.reshape(v0,(u0.shape[0]*u0.shape[1],1), order='F')))
-U=b
-precond=np.eye(2*N*M,2*N*M)
-precond=precond.astype(np.float32)
-for i in range(2*N*M):
-    precond[i,i]=2*i+1
-L = LinearOperator((2*M*N,2*M*N), matvec=lambda U: mv(U,lmbda,Ix,Iy,N,M)) 
-###################################################### 
-t1= time()
-x,exitcode=sparse.linalg.minres(L,b,M=precond)
-t2= time()
-xm=minres(Ix2,Iy2,Ixy,lmbda,b,maxiter,rtol,N,M,1,precond)
-t3= time()          
-xm2=minres(Ix2,Iy2,Ixy,lmbda,b,maxiter,rtol,N,M,2,precond)
-t4= time()  
-print('my x\n',xm[:10])
-print('sparse x\n',x[:10],'exit ',exitcode)
-print("SPARSE:", (t2-t1),"MY SOLVER: " , (t3-t2),"MY SOLVER DOT: " , (t4-t3))
-
-
-print('norm sparse:\n',np.linalg.norm(mv(x,lmbda,Ix,Iy,N,M)-b))
-print('norm minres:\n',np.linalg.norm(mv(xm,lmbda,Ix,Iy,N,M)-b))
-print('norm minres dot :\n',np.linalg.norm(mv(xm2,lmbda,Ix,Iy,N,M)-b))
-
-for i in range(2*N*M):
-    precond[i,i]=i+1'''
 
 def minres(Ix2, Iy2, Ixy, lmbda, lmbda2, b, maxiter, rtol, N, M):
     '''
@@ -269,3 +211,67 @@ def minres(Ix2, Iy2, Ixy, lmbda, lmbda2, b, maxiter, rtol, N, M):
             break
 
     return cp.reshape(x,(2*N*M,1))
+
+
+
+
+
+'''
+#Testing and comparing it with minres solver of scipy sparse 
+
+N=400;  lmbda=2; M=40; maxiter=300; rtol=10**-5
+Ix=np.random.rand(N,M)
+Iy=np.random.rand(N,M)
+u0=np.random.rand(N,M)
+v0=np.random.rand(N,M)
+b=np.random.rand(2*N*M,1)
+Ix2=Ix*Ix
+Iy2=Iy*Iy
+Ixy=Ix*Iy
+b=b.astype(np.float32)
+Ix2=Ix2.astype(np.float32)
+Iy2=Iy2.astype(np.float32)
+Ixy=Ixy.astype(np.float32)'''
+
+
+'''
+####################################################
+def mv(U,lmbda,Ix,Iy,N,M):
+                #code.interact(local=locals())
+    u0=U[:N*M]
+    v0=U[N*M:]
+    u0=np.reshape(u0,(N,M),order="F")
+    v0=np.reshape(v0,(N,M),order="F")
+    Ix2=Ix*Ix
+    Iy2=Iy*Iy
+    u1=Ix2*u0+Ix*Iy*v0-2*lmbda*laplace(u0)
+    v1=Iy2*v0+Ix*Iy*u0-2*lmbda*laplace(v0)
+    v1=np.reshape(v1,(N*M,1),order='F')
+    u1=np.reshape(u1,(N*M,1),order='F')
+    return np.vstack((u1,v1))
+#U=np.vstack((np.reshape(u0,(N*M,1), order='F'),np.reshape(v0,(u0.shape[0]*u0.shape[1],1), order='F')))
+U=b
+precond=np.eye(2*N*M,2*N*M)
+precond=precond.astype(np.float32)
+for i in range(2*N*M):
+    precond[i,i]=2*i+1
+L = LinearOperator((2*M*N,2*M*N), matvec=lambda U: mv(U,lmbda,Ix,Iy,N,M)) 
+###################################################### 
+t1= time()
+x,exitcode=sparse.linalg.minres(L,b,M=precond)
+t2= time()
+xm=minres(Ix2,Iy2,Ixy,lmbda,b,maxiter,rtol,N,M,1,precond)
+t3= time()          
+xm2=minres(Ix2,Iy2,Ixy,lmbda,b,maxiter,rtol,N,M,2,precond)
+t4= time()  
+print('my x\n',xm[:10])
+print('sparse x\n',x[:10],'exit ',exitcode)
+print("SPARSE:", (t2-t1),"MY SOLVER: " , (t3-t2),"MY SOLVER DOT: " , (t4-t3))
+
+
+print('norm sparse:\n',np.linalg.norm(mv(x,lmbda,Ix,Iy,N,M)-b))
+print('norm minres:\n',np.linalg.norm(mv(xm,lmbda,Ix,Iy,N,M)-b))
+print('norm minres dot :\n',np.linalg.norm(mv(xm2,lmbda,Ix,Iy,N,M)-b))
+
+for i in range(2*N*M):
+    precond[i,i]=i+1'''
